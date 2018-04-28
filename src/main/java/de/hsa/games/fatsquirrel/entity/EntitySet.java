@@ -87,6 +87,7 @@ public class EntitySet implements Set<Entity> {
 	}
 
 	public void nextStep(final EntityContext context) {
+		Assert.notNull(context, "context must not be null");
 		stream().filter(e -> e instanceof Character).forEach((e -> ((Character) e).nextStep(context)));
 	}
 }
