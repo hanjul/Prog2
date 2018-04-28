@@ -111,10 +111,21 @@ public class FlattenedBoard implements BoardView, EntityContext {
 				killAndReplace(collide);
 				move(master, moveDirection);
 			}
-			
+
 		}
 	}
 
+	/**
+	 * Attempts to move the {@code Entity} in the specified direction. If the
+	 * desired location is already occupied, the method will return the
+	 * {@code Entity} at that location, otherwise {@code null}.
+	 * 
+	 * @param e
+	 *            the Entity to move
+	 * @param direction
+	 *            the direction in which the Entity is to be moved
+	 * @return the Entity at the desired location or null
+	 */
 	private Entity tryCollide(final Entity e, final XY direction) {
 		final XY resultLocation = e.getLocation().add(direction);
 		if (cells[resultLocation.getX()][resultLocation.getY()] == null) {
@@ -193,7 +204,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	public Board getBoard() {
 		return board;
 	}
-	
+
 	@Override
 	public EntityType getEntityType(XY pos) {
 		Assert.notNull(pos, "pos must not be null");
