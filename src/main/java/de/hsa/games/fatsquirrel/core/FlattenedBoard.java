@@ -182,10 +182,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		final List<XY> result = new ArrayList<>();
 		for (int x = 0; x < size.getX(); x++) {
 			for (int y = 0; y < size.getY(); y++) {
-				final XY pos = new XY(x, y);
-				if (!board.getEntities().stream().map(e -> e.getLocation()).filter(xy -> xy.equals(pos)).findAny()
-						.isPresent()) {
-					result.add(pos);
+				if (cells[x][y] == null) {
+					result.add(new XY(x, y));
 				}
 			}
 		}
