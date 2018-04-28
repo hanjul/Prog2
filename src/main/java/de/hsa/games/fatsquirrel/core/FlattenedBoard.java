@@ -170,6 +170,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
 	private XY randomPosition() {
 		final List<XY> locations = getRemainingLocations();
+		if (locations.isEmpty()) {
+			throw new IllegalStateException("the board is full");
+		}
 		Collections.shuffle(locations);
 		return locations.get(0);
 	}
