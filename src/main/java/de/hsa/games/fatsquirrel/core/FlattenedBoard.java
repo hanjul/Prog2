@@ -32,31 +32,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		}
 	}
 
-	private static EntityType getType(final Entity e) {
-		if (e instanceof Wall) {
-			return EntityType.WALL;
-		}
-		if (e instanceof GoodPlant) {
-			return EntityType.GOOD_PLANT;
-		}
-		if (e instanceof BadPlant) {
-			return EntityType.BAD_PLANT;
-		}
-		if (e instanceof GoodBeast) {
-			return EntityType.GOOD_BEAST;
-		}
-		if (e instanceof BadBeast) {
-			return EntityType.BAD_BEAST;
-		}
-		if (e instanceof MiniSquirrel) {
-			return EntityType.MINI_SQUIRREL;
-		}
-		if (e instanceof MasterSquirrel) {
-			return EntityType.MASTER_SQUIRREL;
-		}
-		return null;
-	}
-
 	@Override
 	public EntityType getEntityType(int x, int y) {
 		final XY size = board.getConfig().getSize();
@@ -66,7 +41,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		if (y < 0 || y >= size.getY()) {
 			throw new IndexOutOfBoundsException();
 		}
-		return getType(cells[x][y]);
+		return cells[x][y].getType();
 	}
 
 	@Override
@@ -164,7 +139,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	@Override
 	public void killAndReplace(Entity entity) {
 		kill(entity);
-		final EntityType type = getType(entity);
+		final EntityType type = entity.getType();
 		final XY rand = randomPosition();
 		Entity plant = null;
 		if (type == EntityType.GOOD_PLANT) {
