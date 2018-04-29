@@ -32,4 +32,9 @@ public class BadBeast extends Character {
 		final BadBeast other = (BadBeast) obj;
 		return getId() == other.getId() && getEnergy() == other.getEnergy() && Objects.equals(getLocation(), other.getLocation());
 	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.BAD_BEAST;
+	}
 }

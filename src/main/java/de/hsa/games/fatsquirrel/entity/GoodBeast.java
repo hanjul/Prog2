@@ -32,4 +32,9 @@ public class GoodBeast extends Character {
 		final GoodBeast other = (GoodBeast) obj;
 		return getId() == other.getId() && getEnergy() == other.getEnergy() && Objects.equals(getLocation(), other.getLocation());
 	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.GOOD_BEAST;
+	}
 }

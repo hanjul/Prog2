@@ -53,4 +53,6 @@ public abstract class Entity {
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		return result;
 	}
+	
+	public abstract EntityType getType();
 }

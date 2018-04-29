@@ -27,4 +27,9 @@ public final class Wall extends Entity {
 		return getId() == other.getId() && getEnergy() == other.getEnergy()
 				&& Objects.equals(getLocation(), other.getLocation());
 	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.WALL;
+	}
 }

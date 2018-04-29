@@ -35,4 +35,9 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
 		final HandOperatedMasterSquirrel other = (HandOperatedMasterSquirrel) obj;
 		return getId() == other.getId() && getEnergy() == other.getEnergy() && Objects.equals(getLocation(), other.getLocation());
 	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.MASTER_SQUIRREL;
+	}
 }

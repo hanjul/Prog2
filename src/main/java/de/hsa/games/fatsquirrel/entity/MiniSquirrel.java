@@ -30,4 +30,9 @@ public class MiniSquirrel extends PlayerEntity {
 		final MiniSquirrel other = (MiniSquirrel) obj;
 		return getId() == other.getId() && getEnergy() == other.getEnergy() && Objects.equals(getLocation(), other.getLocation());
 	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.MINI_SQUIRREL;
+	}
 }
