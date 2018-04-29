@@ -41,6 +41,10 @@ public final class XY {
 	public double length() {
 		return Math.sqrt(x * x + y * y);
 	}
+	
+	public int gridLength() {
+		return Math.max(Math.abs(x), Math.abs(y));
+	}
 
 	@Override
 	public int hashCode() {
