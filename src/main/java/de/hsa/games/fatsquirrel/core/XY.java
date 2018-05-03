@@ -3,6 +3,7 @@ package de.hsa.games.fatsquirrel.core;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 public final class XY {
 
@@ -92,5 +93,9 @@ public final class XY {
 
 	public XY minus(XY location) {
 		return add(location.reverse());
+	}
+	
+	public static XY randomDirection() {
+		return DIRECTIONS.get(ThreadLocalRandom.current().nextInt(DIRECTIONS.size()));
 	}
 }
