@@ -1,8 +1,8 @@
 package de.hsa.games.fatsquirrel.core;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public final class XY {
 
@@ -14,58 +14,48 @@ public final class XY {
 	public static final XY DOWN_RIGHT = new XY(-1, 1);
 	public static final XY RIGHT = new XY(0, 1);
 	public static final XY LEFT = new XY(0, -1);
-	
-	private static final Set<XY> DIRECTIONS = new HashSet<>();
-	
-	static {
-		DIRECTIONS.add(UP);
-		DIRECTIONS.add(UP_LEFT);
-		DIRECTIONS.add(UP_RIGHT);
-		DIRECTIONS.add(DOWN);
-		DIRECTIONS.add(DOWN_LEFT);
-		DIRECTIONS.add(DOWN_RIGHT);
-		DIRECTIONS.add(RIGHT);
-		DIRECTIONS.add(LEFT);
-	}
-	
+
+	private static final List<XY> DIRECTIONS = Arrays.asList(UP, UP_LEFT, UP_RIGHT, DOWN, DOWN_LEFT, DOWN_RIGHT, RIGHT,
+			LEFT);
+
 	private final int x;
 	private final int y;
-	
+
 	public XY(final int xy) {
 		this.x = this.y = xy;
 	}
-	
+
 	public XY(final int x, final int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public int getX() {
 		return x;
 	}
-	
+
 	public int getY() {
 		return y;
 	}
-	
+
 	public XY reverse() {
 		return new XY(-x, -y);
 	}
-	
+
 	public XY add(final XY other) {
 		Objects.requireNonNull(other, "other must not be null");
 		return new XY(x + other.x, y + other.y);
 	}
-	
+
 	public XY add(final Direction direction) {
 		Objects.requireNonNull(direction, "direction must not be null");
 		return new XY(x + direction.getDeltaX(), y + direction.getDeltaY());
 	}
-	
+
 	public double length() {
 		return Math.sqrt(x * x + y * y);
 	}
-	
+
 	public int gridLength() {
 		return Math.max(Math.abs(x), Math.abs(y));
 	}
