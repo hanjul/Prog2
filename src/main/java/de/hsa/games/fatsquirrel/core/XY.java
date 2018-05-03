@@ -2,8 +2,9 @@ package de.hsa.games.fatsquirrel.core;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
+
+import de.hsa.games.fatsquirrel.util.Assert;
 
 public final class XY {
 
@@ -44,7 +45,7 @@ public final class XY {
 	}
 
 	public XY add(final XY other) {
-		Objects.requireNonNull(other, "other must not be null");
+		Assert.notNull(other, "other must not be null");
 		return new XY(x + other.x, y + other.y);
 	}
 
