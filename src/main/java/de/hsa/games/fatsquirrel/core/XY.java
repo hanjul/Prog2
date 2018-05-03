@@ -61,7 +61,11 @@ public final class XY {
 		if (min > max) {
 			throw new IllegalArgumentException("min > max");
 		}
-		return new XY(Math.max(x, min), Math.min(y, max));
+		return new XY(clamp(min, max, x), clamp(min, max, y));
+	}
+	
+	private static int clamp(final int min, final int max, final int val) {
+		return Math.max(min, Math.min(max, val));
 	}
 
 	@Override
