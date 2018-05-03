@@ -48,11 +48,6 @@ public final class XY {
 		return new XY(x + other.x, y + other.y);
 	}
 
-	public XY add(final Direction direction) {
-		Objects.requireNonNull(direction, "direction must not be null");
-		return new XY(x + direction.getDeltaX(), y + direction.getDeltaY());
-	}
-
 	public double length() {
 		return Math.sqrt(x * x + y * y);
 	}
