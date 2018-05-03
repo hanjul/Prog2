@@ -6,6 +6,8 @@ import de.hsa.games.fatsquirrel.util.Assert;
 
 public abstract class PlayerEntity extends Character {
 
+	private static final int DEFAULT_STUNNED_ROUNDS = 3;
+	
 	private int stunnedRounds;
 	
 	public PlayerEntity(int id, int energy, XY location) {
@@ -22,6 +24,10 @@ public abstract class PlayerEntity extends Character {
 	
 	public boolean isStunned() {
 		return stunnedRounds >= 0;
+	}
+	
+	public void stun() {
+		stun(DEFAULT_STUNNED_ROUNDS);
 	}
 	
 	public void stun(final int stunnedRounds) {
