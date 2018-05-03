@@ -4,6 +4,15 @@ import java.util.Objects;
 
 public final class XY {
 
+	public static final XY UP = new XY(1, 0);
+	public static final XY UP_LEFT = new XY(1, -1);
+	public static final XY UP_RIGHT = new XY(1, 1);
+	public static final XY DOWN = new XY(-1, 0);
+	public static final XY DOWN_LEFT = new XY(-1, -1);
+	public static final XY DOWN_RIGHT = new XY(-1, 1);
+	public static final XY RIGHT = new XY(0, 1);
+	public static final XY LEFT = new XY(0, -1);
+	
 	private final int x;
 	private final int y;
 	
