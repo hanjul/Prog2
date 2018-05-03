@@ -19,7 +19,7 @@ public abstract class PlayerEntity extends Character {
 		return stunnedRounds > 0;
 	}
 	
-	public void setStunnedRounds(final int stunnedRounds) {
+	public void stun(final int stunnedRounds) {
 		Assert.isTrue(stunnedRounds >= 0, "stunnedRounds must be >= 0");
 		this.stunnedRounds = stunnedRounds;
 	}
