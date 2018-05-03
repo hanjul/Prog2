@@ -1,6 +1,8 @@
 package de.hsa.games.fatsquirrel.core;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public final class XY {
 
@@ -12,6 +14,19 @@ public final class XY {
 	public static final XY DOWN_RIGHT = new XY(-1, 1);
 	public static final XY RIGHT = new XY(0, 1);
 	public static final XY LEFT = new XY(0, -1);
+	
+	private static final Set<XY> DIRECTIONS = new HashSet<>();
+	
+	static {
+		DIRECTIONS.add(UP);
+		DIRECTIONS.add(UP_LEFT);
+		DIRECTIONS.add(UP_RIGHT);
+		DIRECTIONS.add(DOWN);
+		DIRECTIONS.add(DOWN_LEFT);
+		DIRECTIONS.add(DOWN_RIGHT);
+		DIRECTIONS.add(RIGHT);
+		DIRECTIONS.add(LEFT);
+	}
 	
 	private final int x;
 	private final int y;
