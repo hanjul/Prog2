@@ -11,10 +11,6 @@ public abstract class PlayerEntity extends Character {
 		super(id, energy, location);
 	}
 	
-	protected boolean isStunnedAndDecrement() {
-		return stunnedRounds-- > 0;
-	}
-	
 	public boolean isStunned() {
 		return stunnedRounds > 0;
 	}
