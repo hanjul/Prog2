@@ -56,6 +56,13 @@ public final class XY {
 	public int gridLength() {
 		return Math.max(Math.abs(x), Math.abs(y));
 	}
+	
+	public XY clamp(final int min, final int max) {
+		if (min > max) {
+			throw new IllegalArgumentException("min > max");
+		}
+		return new XY(Math.max(x, min), Math.min(y, max));
+	}
 
 	@Override
 	public int hashCode() {
