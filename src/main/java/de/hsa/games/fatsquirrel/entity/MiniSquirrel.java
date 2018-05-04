@@ -14,7 +14,7 @@ public class MiniSquirrel extends PlayerEntity {
 	@Override
 	public void nextStep(EntityContext context) {
 		super.nextStep(context);
-		if (isStunned()) {
+		if (canMove()) {
 			return;
 		}
 		context.tryMove(this, XY.randomDirection());
