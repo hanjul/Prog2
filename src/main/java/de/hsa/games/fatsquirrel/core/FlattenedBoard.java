@@ -32,15 +32,17 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		}
 	}
 
+	private static void rangeCheck(final int index, final int max) {
+		if (index < 0 || index >= max) {
+			throw new IndexOutOfBoundsException("Index: " + index + ", Max: " + max);
+		}
+	}
+	
 	@Override
 	public EntityType getEntityType(int x, int y) {
 		final XY size = board.getConfig().getSize();
-		if (x < 0 || x >= size.getX()) {
-			throw new IndexOutOfBoundsException();
-		}
-		if (y < 0 || y >= size.getY()) {
-			throw new IndexOutOfBoundsException();
-		}
+		rangeCheck(x, size.getX());
+		rangeCheck(x, size.getY());
 		return cells[x][y].getType();
 	}
 
@@ -51,8 +53,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
 	@Override
 	public void tryMove(MiniSquirrel squirrel, XY moveDirection) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -81,6 +82,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		if (collide != null) {
 			if (collide instanceof Wall) {
 				master.updateEnergy(collide.getEnergy());
+				master.stun();
 			}
 			if (collide instanceof BadPlant || collide instanceof GoodPlant) {
 				killAndReplace(collide);
@@ -88,6 +90,10 @@ public class FlattenedBoard implements BoardView, EntityContext {
 			}
 
 		}
+	}
+	
+	private void tryMove(final PlayerEntity entity, final XY moveDirection) {
+		
 	}
 
 	/**
