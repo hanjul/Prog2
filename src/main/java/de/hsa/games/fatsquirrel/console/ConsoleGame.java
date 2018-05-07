@@ -16,6 +16,6 @@ public class ConsoleGame extends Game {
 
 	@Override
 	protected void render() {
-		
+		getUI().render(getState().flattenedBoard());
 	}
 }

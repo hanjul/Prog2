@@ -3,21 +3,25 @@ package de.hsa.games.fatsquirrel.entity;
 import java.util.Objects;
 
 import de.hsa.games.fatsquirrel.UI;
+import de.hsa.games.fatsquirrel.console.ConsoleUI;
 import de.hsa.games.fatsquirrel.core.EntityContext;
 import de.hsa.games.fatsquirrel.core.XY;
-import de.hsa.games.fatsquirrel.util.Assert;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
 
-	private final UI ui;
+	private final UI ui = new ConsoleUI();
 
-	public HandOperatedMasterSquirrel(final int id, final XY location, final UI ui) {
+	public HandOperatedMasterSquirrel(final int id, final XY location) {
 		super(id, location);
-		this.ui = Assert.notNull(ui, "ui must not be null");
 	}
 
 	@Override
 	public void nextStep(EntityContext context) {
+		super.nextStep(context);
+		if (!canMove()) {
+			return;
+		}
+		System.out.println(this);
 		context.tryMove(this, ui.getCommand().getDirection());
 	}
 
@@ -33,6 +37,12 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
 			return false;
 		}
 		final HandOperatedMasterSquirrel other = (HandOperatedMasterSquirrel) obj;
-		return getId() == other.getId() && getEnergy() == other.getEnergy() && Objects.equals(getLocation(), other.getLocation());
+		return getId() == other.getId() && getEnergy() == other.getEnergy()
+				&& Objects.equals(getLocation(), other.getLocation());
+	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.MASTER_SQUIRREL;
 	}
 }

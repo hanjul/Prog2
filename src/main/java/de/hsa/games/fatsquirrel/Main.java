@@ -12,16 +12,17 @@ import de.hsa.games.fatsquirrel.entity.EntityType;
 
 public class Main {
 
-	public Main() {
+	public static void main(String[] args) {
 		Map<EntityType, Integer> m = new EnumMap<>(EntityType.class);
 		m.put(EntityType.WALL, 2);
-		m.put(EntityType.GOOD_BEAST, 2);
+		m.put(EntityType.GOOD_BEAST, 1);
 		m.put(EntityType.BAD_BEAST, 2);
 		m.put(EntityType.GOOD_PLANT, 2);
 		m.put(EntityType.BAD_PLANT, 2);
-		BoardConfig c = new BoardConfig(m, new XY(8, 8), 5);
+		m.put(EntityType.MASTER_SQUIRREL, 1);
+		BoardConfig c = new BoardConfig(m, new XY(10, 8), 5);
 		Board b = new BoardCreator(0, c).generateBoard();
 		State s = new State(b);
-		new ConsoleGame(s).getState();
+		new ConsoleGame(s).run();
 	}
 }

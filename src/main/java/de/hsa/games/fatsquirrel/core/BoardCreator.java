@@ -12,6 +12,7 @@ import de.hsa.games.fatsquirrel.entity.Entity;
 import de.hsa.games.fatsquirrel.entity.EntitySet;
 import de.hsa.games.fatsquirrel.entity.EntityType;
 import de.hsa.games.fatsquirrel.entity.GoodBeast;
+import de.hsa.games.fatsquirrel.entity.HandOperatedMasterSquirrel;
 import de.hsa.games.fatsquirrel.entity.Wall;
 import de.hsa.games.fatsquirrel.util.Assert;
 
@@ -71,7 +72,7 @@ public final class BoardCreator {
 		case GOOD_PLANT:
 			return new BadPlant(id, location);
 		case MASTER_SQUIRREL:
-			return null;
+			return new HandOperatedMasterSquirrel(id, location);
 		case MINI_SQUIRREL:
 			return null;
 		case WALL:

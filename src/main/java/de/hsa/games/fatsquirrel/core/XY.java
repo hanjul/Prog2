@@ -1,45 +1,75 @@
 package de.hsa.games.fatsquirrel.core;
 
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import de.hsa.games.fatsquirrel.util.Assert;
 
 public final class XY {
 
+	public static final XY UP = new XY(1, 0);
+	public static final XY UP_LEFT = new XY(1, -1);
+	public static final XY UP_RIGHT = new XY(1, 1);
+	public static final XY DOWN = new XY(-1, 0);
+	public static final XY DOWN_LEFT = new XY(-1, -1);
+	public static final XY DOWN_RIGHT = new XY(-1, 1);
+	public static final XY RIGHT = new XY(0, 1);
+	public static final XY LEFT = new XY(0, -1);
+
+	private static final List<XY> DIRECTIONS = Arrays.asList(UP, UP_LEFT, UP_RIGHT, DOWN, DOWN_LEFT, DOWN_RIGHT, RIGHT,
+			LEFT);
+
 	private final int x;
 	private final int y;
-	
+
 	public XY(final int xy) {
 		this.x = this.y = xy;
 	}
-	
+
 	public XY(final int x, final int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public int getX() {
 		return x;
 	}
-	
+
 	public int getY() {
 		return y;
 	}
-	
+
 	public XY reverse() {
 		return new XY(-x, -y);
 	}
-	
+
 	public XY add(final XY other) {
-		Objects.requireNonNull(other, "other must not be null");
+		Assert.notNull(other, "other must not be null");
 		return new XY(x + other.x, y + other.y);
 	}
-	
-	public XY add(final Direction direction) {
-		Objects.requireNonNull(direction, "direction must not be null");
-		return new XY(x + direction.getDeltaX(), y + direction.getDeltaY());
-	}
-	
+
 	public double length() {
 		return Math.sqrt(x * x + y * y);
+	}
+
+	public int gridLength() {
+		return Math.max(Math.abs(x), Math.abs(y));
+	}
+	
+	public XY clamp() {
+		return clamp(-1, 1);
+	}
+	
+	public XY clamp(final int min, final int max) {
+		if (min > max) {
+			throw new IllegalArgumentException("min > max");
+		}
+		return new XY(clamp(min, max, x), clamp(min, max, y));
+	}
+	
+	private static int clamp(final int min, final int max, final int val) {
+		return Math.max(min, Math.min(max, val));
 	}
 
 	@Override
@@ -74,5 +104,9 @@ public final class XY {
 
 	public XY minus(XY location) {
 		return add(location.reverse());
+	}
+	
+	public static XY randomDirection() {
+		return DIRECTIONS.get(ThreadLocalRandom.current().nextInt(DIRECTIONS.size()));
 	}
 }

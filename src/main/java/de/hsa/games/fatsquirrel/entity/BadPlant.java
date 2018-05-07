@@ -26,4 +26,9 @@ public class BadPlant extends Entity {
 		final BadPlant other = (BadPlant) obj;
 		return getId() == other.getId() && getEnergy() == other.getEnergy() && Objects.equals(getLocation(), other.getLocation());
 	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.BAD_PLANT;
+	}
 }

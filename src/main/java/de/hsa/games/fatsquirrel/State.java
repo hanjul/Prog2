@@ -9,13 +9,15 @@ public class State {
 
 	private final Board board;
 	private int highscore;
+	private FlattenedBoard flat;
 	
 	public State(final Board board) {
 		this.board = Objects.requireNonNull(board);
+		flat = flattenedBoard();
 	}
 	
 	public void update() {
-		
+		board.getEntities().nextStep(flat);
 	}
 	
 	public int getHighscore() {
@@ -24,5 +26,10 @@ public class State {
 	
 	public FlattenedBoard flattenedBoard() {
 		return board.flatten();
+	}
+	
+	@Override
+	public String toString() {
+		return "Highscore: " + highscore + "\n" + board.toString();
 	}
 }
