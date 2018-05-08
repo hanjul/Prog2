@@ -93,4 +93,9 @@ public class ConsoleUI implements UI {
 		}
 		System.out.println();
 	}
+
+	@Override
+	public void message(String msg) {
+		System.out.println(msg);
+	}
 }

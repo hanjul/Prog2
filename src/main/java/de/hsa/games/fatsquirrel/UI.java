@@ -6,4 +6,5 @@ public interface UI {
 
 	MoveCommand getCommand();
 	void render(BoardView view);
+	void message(String msg);
 }
