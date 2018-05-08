@@ -20,7 +20,6 @@ public class MiniSquirrel extends PlayerEntity {
 			return;
 		}
 		updateEnergy(-1);
-		context.tryMove(this, XY.randomDirection());
 	}
 	
 	@Override

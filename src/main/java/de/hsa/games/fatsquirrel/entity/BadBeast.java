@@ -17,14 +17,10 @@ public class BadBeast extends Character {
 
 	@Override
 	public void nextStep(EntityContext context) {
-		System.out.println(1);
+		super.nextStep(context);
 		if (!canMove()) {
-			System.out.println(2);
-			roundsTillNextMove--;
 			return;
 		}
-		System.out.println(3);
-		System.out.println("Rounds: " + roundsTillNextMove);
 		roundsTillNextMove = ROUND_TIMEOUT;
 		final Entity player = context.nearestPlayerEntity(getLocation());
 		if (player != null) {

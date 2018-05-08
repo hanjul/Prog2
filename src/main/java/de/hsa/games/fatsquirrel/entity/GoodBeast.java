@@ -16,8 +16,9 @@ public class GoodBeast extends Character {
 
 	@Override
 	public void nextStep(EntityContext context) {
+		super.nextStep(context);
 		if (!canMove()) {
-			roundsTillNextMove--;
+			return;
 		}
 		roundsTillNextMove = ROUND_TIMEOUT;
 		final Entity player = context.nearestPlayerEntity(getLocation());

@@ -1,41 +1,24 @@
 package de.hsa.games.fatsquirrel.console;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.UI;
+import de.hsa.games.fatsquirrel.command.Command;
+import de.hsa.games.fatsquirrel.command.CommandScanner;
 import de.hsa.games.fatsquirrel.core.BoardView;
 import de.hsa.games.fatsquirrel.entity.EntityType;
 
 public class ConsoleUI implements UI {
 
-	private static final Pattern INPUT_PATTERN = Pattern.compile("[1-8]");
-	private final Scanner input = new Scanner(System.in);
 	private static final boolean SLOW_MOTION = false;
 	
 	@Override
-	public MoveCommand getCommand() {
-		System.out.println("Please enter the next direction (1=right,2=up,3=down,4=left)");
-		String line;
-		while (!INPUT_PATTERN.matcher(line = input.nextLine()).matches())
-			;
-//		1 -> right
-//		2 -> up
-//		3 -> down
-//		4 -> left
-		final int move = Integer.parseInt(line);
-		switch (move) {
-		case 1:
-			return MoveCommand.MOVE_UP;
-		case 2:
-			return MoveCommand.MOVE_LEFT;
-		case 3:
-			return MoveCommand.MOVE_RIGHT;
-		case 4:
-			return MoveCommand.MOVE_DOWN;
-		}
-		return null;
+	public Command getCommand() {
+		final CommandScanner scanner = new CommandScanner(GameCommandType.values(), new BufferedReader(new InputStreamReader(System.in)), System.out);
+		return scanner.next();
 	}
 
 	private static void render(final EntityType type) {

@@ -19,7 +19,7 @@ public abstract class Character extends Entity {
 		}
 	}
 	
-	protected boolean canMove() {
+	public boolean canMove() {
 		return roundsTillNextMove <= 0;
 	}
 }

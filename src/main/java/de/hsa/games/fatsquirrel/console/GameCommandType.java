@@ -38,4 +38,10 @@ public enum GameCommandType implements CommandTypeInfo {
 	public Class<?>[] getParamTypes() {
 		return params;
 	}
+
+	@Override
+	public void execute(Object target, Object... args) {
+		// TODO Auto-generated method stub
+		
+	}
 }

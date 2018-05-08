@@ -1,5 +1,8 @@
 package de.hsa.games.fatsquirrel.command;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public enum MyFavoriteCommandType implements CommandTypeInfo {
 
 	HELP("help", "list all commands"),
@@ -31,5 +34,16 @@ public enum MyFavoriteCommandType implements CommandTypeInfo {
 	@Override
 	public Class<?>[] getParamTypes() {
 		return params;
+	}
+	
+	@Override
+	public void execute(Object target, Object... args) {
+		try {
+			final Method targetMethod = target.getClass().getMethod(name, params);
+			targetMethod.setAccessible(true);
+			targetMethod.invoke(target, args);
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
 	}
 }

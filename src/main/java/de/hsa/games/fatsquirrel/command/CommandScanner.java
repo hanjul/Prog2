@@ -20,7 +20,7 @@ public class CommandScanner {
 	public Command next() {
 		String line;
 		try {
-			while(!(line = inputReader.readLine()).isEmpty());
+			while((line = inputReader.readLine()).isEmpty());
 		} catch (IOException e) {
 			throw new ScanException(e);
 		}
@@ -40,10 +40,15 @@ public class CommandScanner {
 			throw new ScanException();
 		}
 		
-		final Object[] params = parseParams(Arrays.copyOf(split, remainingParams));
+//		final Object[] params = parseParams(Arrays.copyOf(split, remainingParams));
+		final String[] rawParams = new String[remainingParams];
+		for (int i = 1; i < split.length; i++) {
+			rawParams[i - 1] = split[i];
+		}
+		final Object[] params = parseParams(rawParams);
 		final Class<?>[] paramClasses = getClasses(params);
 		if (!Arrays.equals(info.getParamTypes(), paramClasses)) {
-			throw new ScanException();
+			throw new ScanException("incompatible class types");
 		}
 		return new Command(info, params);
 	}
@@ -51,9 +56,9 @@ public class CommandScanner {
 	private static Class<?>[] getClasses(final Object[] objs) {
 		final Class<?>[] result = new Class<?>[objs.length];
 		for (int i = 0; i < objs.length; i++) {
-			if (objs[i] == Integer.class) {
+			if (objs[i].getClass() == Integer.class) {
 				result[i] = int.class;
-			} else if (objs[i] == Float.class) {
+			} else if (objs[i].getClass() == Float.class) {
 				result[i] = float.class;
 			} else {
 				result[i] = objs[i].getClass();

@@ -16,7 +16,7 @@ public abstract class MasterSquirrel extends PlayerEntity {
 		super(id, DEFAULT_ENERGY, location);
 	}
 	
-	public MiniSquirrel createChild(final int energy) {
+	public MiniSquirrel createChild(final XY direction, final int energy) {
 		if (energy < 100) {
 			throw new IllegalArgumentException("energy must be >= 100");
 		}
@@ -24,7 +24,7 @@ public abstract class MasterSquirrel extends PlayerEntity {
 			throw new IllegalArgumentException("getEnergy() must be > energy");
 		}
 		updateEnergy(-energy);
-		final MiniSquirrel mini = new MiniSquirrel(0, energy, XY.randomDirection());
+		final MiniSquirrel mini = new StandardMiniSquirrel(0, energy, getLocation().add(direction));
 		mini.master = this;
 		return mini;
 	}

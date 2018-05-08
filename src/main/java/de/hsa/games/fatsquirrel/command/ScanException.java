@@ -10,6 +10,10 @@ public class ScanException extends RuntimeException {
 		super();
 	}
 
+	public ScanException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */

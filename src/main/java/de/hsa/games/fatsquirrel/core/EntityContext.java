@@ -33,4 +33,6 @@ public interface EntityContext {
 	void killAndReplace(Entity entity);
 	
 	EntityType getEntityType(XY pos);
+	
+	void spawnMiniSquirrel(MasterSquirrel master, XY direction, int energy);
 }

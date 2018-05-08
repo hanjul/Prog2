@@ -19,26 +19,14 @@ public class MyFavouriteCommandsProcessor {
 			
 			switch (commandType) {
 			case ADDF: {
-				float left = 0;
-				float right = 0;
-				try {
-					left = Float.parseFloat(params[0].toString());
-					left = Float.parseFloat(params[1].toString());
-				} catch (NumberFormatException e) {
-					throw new ScanException(e);
-				}
+				float left = (float) params[0];
+				float right = (float) params[1];
 				System.out.println(left + right);
 			}
 				break;
 			case ADDI: {
-				int left = 0;
-				int right = 0;
-				try {
-					left = Integer.parseInt(params[0].toString());
-					left = Integer.parseInt(params[1].toString());
-				} catch (NumberFormatException e) {
-					throw new ScanException(e);
-				}
+				int left = (int) params[0];
+				int right = (int) params[1];
 				System.out.println(left + right);
 			}
 				break;
@@ -59,7 +47,8 @@ public class MyFavouriteCommandsProcessor {
 				System.exit(0);
 				break;
 			case HELP:
-				help();
+				command.getCommandType().execute(this);
+//				help();
 				break;
 			default:
 				break;
@@ -68,11 +57,12 @@ public class MyFavouriteCommandsProcessor {
 		}
 	}
 	
-	private void help() {
+	public void help() {
 		System.out.println("Displays a helpful help message");
 	}
 	
 	public static void main(String[] args) {
-		
+		MyFavouriteCommandsProcessor processor = new MyFavouriteCommandsProcessor();
+		processor.process();
 	}
 }

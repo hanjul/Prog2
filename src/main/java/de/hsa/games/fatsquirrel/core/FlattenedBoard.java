@@ -341,4 +341,15 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		}
 		return super.toString();
 	}
+
+	@Override
+	public void spawnMiniSquirrel(MasterSquirrel master, XY direction, int energy) {
+		final MiniSquirrel mini = master.createChild(direction, energy);
+		final XY location = mini.getLocation();
+		if (cells[location.getX()][location.getY()] != null) {
+			throw new IllegalArgumentException();
+		}
+		cells[location.getX()][location.getY()] = mini;
+		board.getEntities().add(mini);
+	}
 }
