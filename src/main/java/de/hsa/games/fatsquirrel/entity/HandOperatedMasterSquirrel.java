@@ -21,7 +21,6 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
 		if (!canMove()) {
 			return;
 		}
-		System.out.println(this);
 		context.tryMove(this, ui.getCommand().getDirection());
 	}
 
