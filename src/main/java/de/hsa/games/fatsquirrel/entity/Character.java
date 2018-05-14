@@ -20,6 +20,8 @@ public abstract class Character extends Entity {
 	}
 	
 	protected boolean canMove() {
-		return roundsTillNextMove >= 0;
+		System.out.println("move?");
+		System.out.println(roundsTillNextMove >= 0);
+		return roundsTillNextMove <= 0;
 	}
 }
