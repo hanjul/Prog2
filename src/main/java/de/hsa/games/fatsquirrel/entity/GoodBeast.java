@@ -8,6 +8,7 @@ import de.hsa.games.fatsquirrel.core.XY;
 public class GoodBeast extends Character {
 
 	private static final int DEFAULT_ENERGY = 200;
+	private static final int ROUND_TIMEOUT = 4;
 
 	public GoodBeast(int id, XY location) {
 		super(id, DEFAULT_ENERGY, location);
@@ -15,7 +16,18 @@ public class GoodBeast extends Character {
 
 	@Override
 	public void nextStep(EntityContext context) {
-		// NO-IMPL
+		if (!canMove()) {
+			roundsTillNextMove--;
+		}
+		roundsTillNextMove = ROUND_TIMEOUT;
+		final Entity player = context.nearestPlayerEntity(getLocation());
+		if (player != null) {
+			final XY length = player.getLocation().minus(getLocation());
+			if (length.gridLength() <= 6) {
+				final XY direction = length.clamp();
+				context.tryMove(this, direction.reverse());
+			}
+		}
 	}
 	
 	@Override

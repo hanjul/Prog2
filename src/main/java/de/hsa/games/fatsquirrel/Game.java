@@ -34,7 +34,7 @@ public abstract class Game implements Runnable {
 	protected abstract void render();
 
 	public void update() {
-
+		state.update();
 	}
 
 	public State getState() {

@@ -5,10 +5,10 @@ import de.hsa.games.fatsquirrel.util.Assert;
 
 public enum MoveCommand {
 
-	MOVE_UP (new XY(0, 1)),
-	MOVE_LEFT(new XY(-1, 0)),
-	MOVE_RIGHT(new XY(1, 0)),
-	MOVE_DOWN(new XY(0, -1));
+	MOVE_UP (XY.UP),
+	MOVE_LEFT(XY.LEFT),
+	MOVE_RIGHT(XY.RIGHT),
+	MOVE_DOWN(XY.DOWN);
 	
 	private final XY direction;
 	

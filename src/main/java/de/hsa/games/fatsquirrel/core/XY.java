@@ -57,6 +57,10 @@ public final class XY {
 		return Math.max(Math.abs(x), Math.abs(y));
 	}
 	
+	public XY clamp() {
+		return clamp(-1, 1);
+	}
+	
 	public XY clamp(final int min, final int max) {
 		if (min > max) {
 			throw new IllegalArgumentException("min > max");

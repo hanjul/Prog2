@@ -1,16 +1,16 @@
 package de.hsa.games.fatsquirrel.entity;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.hsa.games.fatsquirrel.core.EntityContext;
 import de.hsa.games.fatsquirrel.util.Assert;
 
-public class EntitySet implements Set<Entity> {
+public class EntitySet implements Collection<Entity> {
 
-	private final Set<Entity> inner = new HashSet<>();
+	private final List<Entity> inner = new CopyOnWriteArrayList<>();
 
 	@Override
 	public int size() {
@@ -88,6 +88,12 @@ public class EntitySet implements Set<Entity> {
 
 	public void nextStep(final EntityContext context) {
 		Assert.notNull(context, "context must not be null");
-		stream().filter(e -> e instanceof Character).forEach((e -> ((Character) e).nextStep(context)));
+//		stream().filter(e -> e instanceof Character).forEach((e -> ((Character) e).nextStep(context)));
+		for (Iterator<Entity> it = inner.iterator(); it.hasNext();) {
+			final Entity next = it.next();
+			if (next instanceof Character) {
+				((Character) next).nextStep(context);
+			}
+		}
 	}
 }

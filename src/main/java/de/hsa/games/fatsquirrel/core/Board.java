@@ -24,4 +24,9 @@ public final class Board {
 	public FlattenedBoard flatten() {
 		return new FlattenedBoard(this);
 	}
+	
+	@Override
+	public String toString() {
+		return flatten().toString();
+	}
 }

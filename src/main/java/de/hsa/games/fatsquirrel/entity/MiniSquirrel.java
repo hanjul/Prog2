@@ -7,6 +7,8 @@ import de.hsa.games.fatsquirrel.core.XY;
 
 public class MiniSquirrel extends PlayerEntity {
 
+	MasterSquirrel master;
+	
 	public MiniSquirrel(int id, int energy, XY location) {
 		super(id, energy, location);
 	}
@@ -14,9 +16,10 @@ public class MiniSquirrel extends PlayerEntity {
 	@Override
 	public void nextStep(EntityContext context) {
 		super.nextStep(context);
-		if (canMove()) {
+		if (!canMove()) {
 			return;
 		}
+		updateEnergy(-1);
 		context.tryMove(this, XY.randomDirection());
 	}
 	
@@ -38,5 +41,9 @@ public class MiniSquirrel extends PlayerEntity {
 	@Override
 	public EntityType getType() {
 		return EntityType.MINI_SQUIRREL;
+	}
+	
+	public boolean isSibling(final MiniSquirrel squirrel) {
+		return master.isChild(squirrel);
 	}
 }
