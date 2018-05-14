@@ -1,5 +1,9 @@
 package de.hsa.games.fatsquirrel.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hsa.games.fatsquirrel.entity.Entity;
 import de.hsa.games.fatsquirrel.entity.EntitySet;
 import de.hsa.games.fatsquirrel.util.Assert;
 
@@ -23,6 +27,21 @@ public final class Board {
 	
 	public FlattenedBoard flatten() {
 		return new FlattenedBoard(this);
+	}
+	
+	public <T> List<T> getAll(final Class<T> c) {
+		final List<T> result = new ArrayList<>();
+		for (final Entity e : entities) {
+			if (e.getClass() == c) {
+				result.add(cast(e));
+			}
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static <T> T cast(final Object o) {
+		return (T) o;
 	}
 	
 	@Override

@@ -19,9 +19,7 @@ public abstract class Character extends Entity {
 		}
 	}
 	
-	protected boolean canMove() {
-		System.out.println("move?");
-		System.out.println(roundsTillNextMove >= 0);
+	public boolean canMove() {
 		return roundsTillNextMove <= 0;
 	}
 }

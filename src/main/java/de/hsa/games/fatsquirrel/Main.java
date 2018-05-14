@@ -12,7 +12,12 @@ import de.hsa.games.fatsquirrel.entity.EntityType;
 
 public class Main {
 
+	public void startGame() {
+		
+	}
+	
 	public static void main(String[] args) {
+		new Main().startGame();
 		Map<EntityType, Integer> m = new EnumMap<>(EntityType.class);
 		m.put(EntityType.WALL, 2);
 		m.put(EntityType.GOOD_BEAST, 1);

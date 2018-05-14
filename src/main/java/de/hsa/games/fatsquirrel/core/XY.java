@@ -8,6 +8,8 @@ import de.hsa.games.fatsquirrel.util.Assert;
 
 public final class XY {
 
+	public static final XY ZERO = new XY(0, 0);
+	
 	public static final XY UP = new XY(1, 0);
 	public static final XY UP_LEFT = new XY(1, -1);
 	public static final XY UP_RIGHT = new XY(1, 1);

@@ -18,9 +18,10 @@ public class CommandScanner {
 	}
 	
 	public Command next() {
+		System.out.println("next");
 		String line;
 		try {
-			while(!(line = inputReader.readLine()).isEmpty());
+			while((line = inputReader.readLine()).isEmpty());
 		} catch (IOException e) {
 			throw new ScanException(e);
 		}

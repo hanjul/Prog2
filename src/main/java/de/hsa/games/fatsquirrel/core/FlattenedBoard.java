@@ -36,7 +36,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 			throw new IndexOutOfBoundsException("Index: " + index + ", Max: " + max);
 		}
 	}
-	
+
 	@Override
 	public EntityType getEntityType(int x, int y) {
 		final XY size = getSize();
@@ -213,9 +213,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		}
 		finishMove(master, moveDirection);
 	}
-	
+
 	private void tryMove(final PlayerEntity entity, final XY moveDirection) {
-		
+
 	}
 
 	/**
@@ -223,10 +223,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	 * desired location is already occupied, the method will return the
 	 * {@code Entity} at that location, otherwise {@code null}.
 	 * 
-	 * @param e
-	 *            the Entity to move
-	 * @param direction
-	 *            the direction in which the Entity is to be moved
+	 * @param e         the Entity to move
+	 * @param direction the direction in which the Entity is to be moved
 	 * @return the Entity at the desired location or null
 	 */
 	private Entity tryCollide(final Entity e, final XY direction) {
@@ -293,6 +291,18 @@ public class FlattenedBoard implements BoardView, EntityContext {
 			board.getEntities().add(e);
 			cells[rand.getX()][rand.getY()] = e;
 		}
+	}
+
+	@Override
+	public MiniSquirrel createMiniSquirrel(final MasterSquirrel master, XY direction, final int energy) {
+		final MiniSquirrel mini = master.createChild(direction, energy);
+		final XY location = mini.getLocation();
+		if (cells[location.getX()][location.getY()] != null) {
+			throw new IllegalArgumentException();
+		}
+		cells[location.getX()][location.getY()] = mini;
+		board.getEntities().add(mini);
+		return mini;
 	}
 
 	private XY randomPosition() {

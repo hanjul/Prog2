@@ -2,14 +2,10 @@ package de.hsa.games.fatsquirrel.entity;
 
 import java.util.Objects;
 
-import de.hsa.games.fatsquirrel.UI;
-import de.hsa.games.fatsquirrel.console.ConsoleUI;
 import de.hsa.games.fatsquirrel.core.EntityContext;
 import de.hsa.games.fatsquirrel.core.XY;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
-
-	private final UI ui = new ConsoleUI();
 
 	public HandOperatedMasterSquirrel(final int id, final XY location) {
 		super(id, location);
@@ -21,7 +17,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
 		if (!canMove()) {
 			return;
 		}
-		context.tryMove(this, ui.getCommand().getDirection());
+		context.tryMove(this, getDirection());
 	}
 
 	@Override

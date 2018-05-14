@@ -4,8 +4,16 @@ import de.hsa.games.fatsquirrel.command.CommandTypeInfo;
 
 public enum GameCommandType implements CommandTypeInfo {
 
+	NONE("none", "none"),
 	HELP("help", "list all commands"),
-	EXIT("exit", "exit program");
+	EXIT("exit", "exit program"),
+	ALL("all", "?"),
+	LEFT("left", "move left"),
+	UP("up", "move up"),
+	DOWN("down", "move down"),
+	RIGHT("right", "move right"),
+	MASTER_ENERGY("master_energy", "master energy"),
+	SPAWN_MINI("spawn_mini", "spawn mini");
 
 	private final String name;
 	private final String help;

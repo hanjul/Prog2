@@ -24,6 +24,10 @@ public class State {
 		return highscore;
 	}
 	
+	public Board getBoard() {
+		return board;
+	}
+	
 	public FlattenedBoard flattenedBoard() {
 		return board.flatten();
 	}
