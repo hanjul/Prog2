@@ -12,8 +12,8 @@ public abstract class MasterSquirrel extends PlayerEntity {
 	
 	private static final int DEFAULT_ENERGY = 1000;
 
-	public MasterSquirrel(int id, XY location) {
-		super(id, DEFAULT_ENERGY, location);
+	public MasterSquirrel(XY location) {
+		super(DEFAULT_ENERGY, location);
 	}
 	
 	public MiniSquirrel createChild(final XY direction, final int energy) {
@@ -24,12 +24,26 @@ public abstract class MasterSquirrel extends PlayerEntity {
 			throw new IllegalArgumentException("getEnergy() must be > energy");
 		}
 		updateEnergy(-energy);
-		final MiniSquirrel mini = new MiniSquirrel(0, energy, getLocation().add(direction));
+		final MiniSquirrel mini = new MiniSquirrel(energy, getLocation().plus(direction));
 		mini.master = this;
 		return mini;
 	}
 	
 	public boolean isChild(final MiniSquirrel squirrel) {
 		return children.contains(squirrel);
+	}
+	
+	public List<MiniSquirrel> getChildren() {
+		return children;
+	}
+	
+	@Override
+	public EntityType getType() {
+		return EntityType.MASTER_SQUIRREL;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj == this;
 	}
 }

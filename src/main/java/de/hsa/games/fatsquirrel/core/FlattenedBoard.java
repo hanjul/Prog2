@@ -24,10 +24,10 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	public FlattenedBoard(final Board board) {
 		this.board = Assert.notNull(board, "board must not be null");
 		final XY size = board.getConfig().getSize();
-		cells = new Entity[size.getX()][size.getY()];
+		cells = new Entity[size.x][size.y];
 		for (final Entity e : board.getEntities()) {
 			final XY location = e.getLocation();
-			cells[location.getX()][location.getY()] = e;
+			cells[location.x][location.y] = e;
 		}
 	}
 
@@ -40,8 +40,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	@Override
 	public EntityType getEntityType(int x, int y) {
 		final XY size = getSize();
-		rangeCheck(x, size.getX());
-		rangeCheck(y, size.getY());
+		rangeCheck(x, size.x);
+		rangeCheck(y, size.y);
 		return cells[x][y] == null ? null : cells[x][y].getType();
 	}
 
@@ -168,10 +168,10 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	@SuppressWarnings("unused")
 	private void move(final Entity e, final XY direction) {
 		XY loc = e.getLocation();
-		e.setLocation(loc.add(direction));
-		cells[loc.getX()][loc.getY()] = null;
-		loc = loc.add(direction);
-		cells[loc.getX()][loc.getY()] = e;
+		e.setLocation(loc.plus(direction));
+		cells[loc.x][loc.y] = null;
+		loc = loc.plus(direction);
+		cells[loc.x][loc.y] = e;
 	}
 
 	@Override
@@ -214,10 +214,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		finishMove(master, moveDirection);
 	}
 
-	private void tryMove(final PlayerEntity entity, final XY moveDirection) {
-
-	}
-
 	/**
 	 * Attempts to move the {@code Entity} in the specified direction. If the
 	 * desired location is already occupied, the method will return the
@@ -228,17 +224,17 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	 * @return the Entity at the desired location or null
 	 */
 	private Entity tryCollide(final Entity e, final XY direction) {
-		final XY resultLocation = e.getLocation().add(direction);
-		return cells[resultLocation.getX()][resultLocation.getY()];
+		final XY resultLocation = e.getLocation().plus(direction);
+		return cells[resultLocation.x][resultLocation.y];
 	}
 
 	private void finishMove(final Entity e, final XY direction) {
 		final XY location = e.getLocation();
-		if (cells[location.getX()][location.getY()] != null) {
+		if (cells[location.x][location.y] != null) {
 			if (tryCollide(e, direction) == null) {
-				e.setLocation(e.getLocation().add(direction));
-				cells[location.getX()][location.getY()] = null;
-				cells[e.getLocation().getX()][e.getLocation().getY()] = e;
+				e.setLocation(e.getLocation().plus(direction));
+				cells[location.x][location.y] = null;
+				cells[e.getLocation().x][e.getLocation().y] = e;
 			}
 		}
 	}
@@ -266,7 +262,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		final EntitySet set = board.getEntities();
 		set.remove(entity);
 		final XY location = entity.getLocation();
-		cells[location.getX()][location.getY()] = null;
+		cells[location.x][location.y] = null;
 	}
 
 	@Override
@@ -276,33 +272,31 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		final XY rand = randomPosition();
 		Entity e = null;
 		if (type == EntityType.GOOD_PLANT) {
-			e = new GoodPlant(-1, rand);
+			e = new GoodPlant(rand);
 		}
 		if (type == EntityType.BAD_PLANT) {
-			e = new BadPlant(-1, rand);
+			e = new BadPlant(rand);
 		}
 		if (type == EntityType.GOOD_BEAST) {
-			e = new GoodBeast(-1, rand);
+			e = new GoodBeast(rand);
 		}
 		if (type == EntityType.BAD_BEAST) {
-			e = new BadBeast(-1, rand);
+			e = new BadBeast(rand);
 		}
 		if (e != null) {
 			board.getEntities().add(e);
-			cells[rand.getX()][rand.getY()] = e;
+			cells[rand.x][rand.y] = e;
 		}
 	}
 
 	@Override
-	public MiniSquirrel createMiniSquirrel(final MasterSquirrel master, XY direction, final int energy) {
-		final MiniSquirrel mini = master.createChild(direction, energy);
+	public void spawnMiniSquirrel(final MiniSquirrel mini) {
 		final XY location = mini.getLocation();
-		if (cells[location.getX()][location.getY()] != null) {
-			throw new IllegalArgumentException();
+		if (cells[location.x][location.y] != null) {
+			throw new SpawnException();
 		}
-		cells[location.getX()][location.getY()] = mini;
+		cells[location.x][location.y] = mini;
 		board.getEntities().add(mini);
-		return mini;
 	}
 
 	private XY randomPosition() {
@@ -317,8 +311,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	private List<XY> getRemainingLocations() {
 		final XY size = board.getConfig().getSize();
 		final List<XY> result = new ArrayList<>();
-		for (int x = 0; x < size.getX(); x++) {
-			for (int y = 0; y < size.getY(); y++) {
+		for (int x = 0; x < size.x; x++) {
+			for (int y = 0; y < size.y; y++) {
 				if (cells[x][y] == null) {
 					result.add(new XY(x, y));
 				}
@@ -334,7 +328,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 	@Override
 	public EntityType getEntityType(XY pos) {
 		Assert.notNull(pos, "pos must not be null");
-		return getEntityType(pos.getX(), pos.getY());
+		return getEntityType(pos.x, pos.y);
 	}
 
 	@Override

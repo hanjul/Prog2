@@ -36,3 +36,5 @@ tmp/**/*
 *.swp
 *~.nib
 local.properties
+/bin/
+/target/

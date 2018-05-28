@@ -6,10 +6,10 @@ public abstract class PlayerEntity extends Character {
 
 	private static final int DEFAULT_STUNNED_ROUNDS = 3;
 	
-	private XY direction = XY.ZERO;
+	private XY direction = XY.ZERO_ZERO;
 	
-	public PlayerEntity(int id, int energy, XY location) {
-		super(id, energy, location);
+	public PlayerEntity(int energy, XY location) {
+		super(energy, location);
 	}
 	
 	public void setDirection(final XY direction) {

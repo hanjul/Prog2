@@ -67,6 +67,7 @@ public class Test2<E1, E2> implements BiConsumer<E1 , E2> {
 			this.e = e;
 		}
 		
+		@SuppressWarnings("unchecked")
 		public Test2<E1, E2> then(BiConsumer<E3, E4> b) {
 			t.map.put(e, b);
 			return t;

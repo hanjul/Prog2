@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import de.hsa.games.fatsquirrel.core.EntityContext;
 import de.hsa.games.fatsquirrel.core.XY;
+import de.hsa.games.fatsquirrel.core.XYSupport;
 
 public class BadBeast extends Character {
 
@@ -11,8 +12,8 @@ public class BadBeast extends Character {
 	private static final int ROUND_TIMEOUT = 4;
 	private int livesLeft = 7;
 	
-	public BadBeast(int id, XY location) {
-		super(id, DEFAULT_ENERGY, location);
+	public BadBeast(XY location) {
+		super(DEFAULT_ENERGY, location);
 	}
 
 	@Override
@@ -24,9 +25,8 @@ public class BadBeast extends Character {
 		roundsTillNextMove = ROUND_TIMEOUT;
 		final Entity player = context.nearestPlayerEntity(getLocation());
 		if (player != null) {
-			final XY length = player.getLocation().minus(getLocation());
-			if (length.gridLength() <= 6) {
-				final XY direction = length.clamp();
+			if (player.getLocation().distanceFrom(getLocation()) <= 6) {
+				final XY direction = XYSupport.clamp(player.getLocation().minus(getLocation()));
 				context.tryMove(this, direction);
 			}
 		}

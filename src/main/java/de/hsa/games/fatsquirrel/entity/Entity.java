@@ -6,12 +6,14 @@ import de.hsa.games.fatsquirrel.core.XY;
 
 public abstract class Entity {
 
+	private static int lastId = 0;
+	
 	private final int id;
 	private int energy;
 	private XY location;
 	
-	protected Entity(final int id, final int energy, final XY location) {
-		this.id = id;
+	protected Entity(final int energy, final XY location) {
+		this.id = lastId++;
 		this.energy = energy;
 		setLocation(location);
 	}

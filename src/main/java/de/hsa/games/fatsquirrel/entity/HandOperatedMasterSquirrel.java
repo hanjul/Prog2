@@ -7,8 +7,8 @@ import de.hsa.games.fatsquirrel.core.XY;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
 
-	public HandOperatedMasterSquirrel(final int id, final XY location) {
-		super(id, location);
+	public HandOperatedMasterSquirrel(final XY location) {
+		super(location);
 	}
 
 	@Override

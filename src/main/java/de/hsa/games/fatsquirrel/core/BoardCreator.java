@@ -37,12 +37,10 @@ public final class BoardCreator {
 	private EntitySet generateWalls() {
 		final EntitySet set = new EntitySet();
 		final XY size = config.getSize();
-		int id = 0;
-		for (int x = 0; x < size.getX(); x++) {
-			for (int y = 0; y < size.getY(); y++) {
-				id++;
-				if ((x == 0 || y == 0) || (x == size.getX() - 1 || y == size.getY() - 1)) {
-					set.add(new Wall(id, new XY(x, y)));
+		for (int x = 0; x < size.x; x++) {
+			for (int y = 0; y < size.y; y++) {
+				if ((x == 0 || y == 0) || (x == size.x - 1 || y == size.y - 1)) {
+					set.add(new Wall(new XY(x, y)));
 				}
 			}
 		}
@@ -51,32 +49,32 @@ public final class BoardCreator {
 
 	private List<XY> generateLocations() {
 		final XY size = config.getSize();
-		// final int innerSize = (size.getX() - 2) * (size.getY() - 2);
+		// final int innerSize = (size.x - 2) * (size.y - 2);
 		final List<XY> locations = new ArrayList<>();
-		for (int x = 1; x < size.getX() - 1; x++) {
-			for (int y = 1; y < size.getY() - 1; y++) {
+		for (int x = 1; x < size.x - 1; x++) {
+			for (int y = 1; y < size.y - 1; y++) {
 				locations.add(new XY(x, y));
 			}
 		}
 		return locations;
 	}
 
-	private static Entity generateEntity(final EntityType type, final int id, final XY location) {
+	private static Entity generateEntity(final EntityType type, final XY location) {
 		switch (type) {
 		case BAD_BEAST:
-			return new BadBeast(id, location);
+			return new BadBeast(location);
 		case BAD_PLANT:
-			return new BadPlant(id, location);
+			return new BadPlant(location);
 		case GOOD_BEAST:
-			return new GoodBeast(id, location);
+			return new GoodBeast(location);
 		case GOOD_PLANT:
-			return new BadPlant(id, location);
+			return new BadPlant(location);
 		case MASTER_SQUIRREL:
-			return new HandOperatedMasterSquirrel(id, location);
+			return new HandOperatedMasterSquirrel(location);
 		case MINI_SQUIRREL:
 			return null;
 		case WALL:
-			return new Wall(id, location);
+			return new Wall(location);
 		default:
 			return null;
 		}
@@ -84,18 +82,17 @@ public final class BoardCreator {
 
 	public Board generateBoard() {
 		final EntitySet set = generateWalls();
-		int id = set.size();
 		final List<XY> locations = generateLocations();
 		Collections.shuffle(locations, new Random(seed));
 		int index = 0;
 		
 		for (int i = 0; i < config.getWallCount(); i++) {
-			set.add(new Wall(++id, locations.get(index++)));
+			set.add(new Wall(locations.get(index++)));
 		}
 		
 		for (final Map.Entry<EntityType, Integer> e : config.getEntityAmounts().entrySet()) {
 			for (int i = 0; i < e.getValue(); i++) {
-				final Entity generated = generateEntity(e.getKey(), ++id, locations.get(index++));
+				final Entity generated = generateEntity(e.getKey(), locations.get(index++));
 				if (generated != null) {
 					set.add(generated);
 				}

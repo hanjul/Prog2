@@ -30,7 +30,7 @@ public class FxUI extends Scene implements UI {
 	}
 
 	public static FxUI createInstance(XY boardSize) {
-		Canvas boardCanvas = new Canvas(boardSize.getX() * CELL_SIZE, boardSize.getY() * CELL_SIZE);
+		Canvas boardCanvas = new Canvas(boardSize.x * CELL_SIZE, boardSize.y * CELL_SIZE);
 		Label statusLabel = new Label();
 		VBox top = new VBox();
 		top.getChildren().add(boardCanvas);
@@ -47,6 +47,7 @@ public class FxUI extends Scene implements UI {
 			break;
 			case S: currentCommand = new Command(GameCommandType.DOWN);
 			break;
+			default: currentCommand = new Command(GameCommandType.NONE);
 			}
 		});
 		return fxUI;
@@ -60,15 +61,15 @@ public class FxUI extends Scene implements UI {
 	private void repaintBoardCanvas(BoardView view) {
 		GraphicsContext gc = boardCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
-		XY viewSize = view.getSize();
+//		XY viewSize = view.getSize();
 
 		// dummy for rendering a board snapshot, TODO: change it!
 //        gc.fillText("Where are the beasts?", 500, 500);
 //        gc.setFill(Color.RED);
 //        gc.fillOval(150, 150, 50, 50);
 
-		for (int x = 0; x < view.getSize().getY(); x++) {
-			for (int y = 0; y < view.getSize().getX(); y++) {
+		for (int x = 0; x < view.getSize().y; x++) {
+			for (int y = 0; y < view.getSize().x; y++) {
 				final EntityType e = view.getEntityType(y, x);
 				render(gc, e, y, x);
 			}
@@ -129,6 +130,8 @@ public class FxUI extends Scene implements UI {
 
 	@Override
 	public Command getCommand() {
-		return currentCommand;
+		final Command lastCommand = currentCommand;
+		currentCommand = new Command(GameCommandType.NONE);
+		return lastCommand;
 	}
 }

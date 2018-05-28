@@ -16,23 +16,22 @@ public interface EntityContext {
 	 * @return the size of the associated Entity
 	 */
 	XY getSize();
-	
+
 	void tryMove(MiniSquirrel squirrel, XY moveDirection);
-	
+
 	void tryMove(GoodBeast beast, XY moveDirection);
-	
+
 	void tryMove(BadBeast beast, XY moveDirection);
-	
+
 	void tryMove(MasterSquirrel master, XY moveDirection);
-	
+
 	PlayerEntity nearestPlayerEntity(XY pos);
-	
-	
+
 	void kill(Entity entity);
-	
+
 	void killAndReplace(Entity entity);
-	
+
 	EntityType getEntityType(XY pos);
-	
-	MiniSquirrel createMiniSquirrel(final MasterSquirrel master, XY direction, final int energy);
+
+	void spawnMiniSquirrel(final MiniSquirrel mini);
 }

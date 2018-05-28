@@ -58,9 +58,9 @@ public class ConsoleUI implements UI {
 			}
 		}
 
-		for (int x = 0; x < view.getSize().getY(); x++) {
+		for (int x = 0; x < view.getSize().y; x++) {
 			String sep = "";
-			for (int y = 0; y < view.getSize().getX(); y++) {
+			for (int y = 0; y < view.getSize().x; y++) {
 				System.out.print(sep);
 				final EntityType e = view.getEntityType(y, x);
 				if (e == null) {

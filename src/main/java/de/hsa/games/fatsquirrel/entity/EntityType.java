@@ -3,10 +3,11 @@ package de.hsa.games.fatsquirrel.entity;
 public enum EntityType {
 
 	WALL,
-	GOOD_PLANT,
-	BAD_PLANT,
 	GOOD_BEAST,
 	BAD_BEAST,
+	GOOD_PLANT,
+	BAD_PLANT,
+	MASTER_SQUIRREL,
 	MINI_SQUIRREL,
-	MASTER_SQUIRREL;
+	NONE;
 }

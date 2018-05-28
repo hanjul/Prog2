@@ -8,8 +8,8 @@ public final class Wall extends Entity {
 
 	private static final int DEFAULT_ENERGY = -10;
 
-	public Wall(final int id, final XY location) {
-		super(id, DEFAULT_ENERGY, location);
+	public Wall(final XY location) {
+		super(DEFAULT_ENERGY, location);
 	}
 
 	@Override

@@ -7,9 +7,10 @@ import java.util.concurrent.ThreadLocalRandom;
 import de.hsa.games.fatsquirrel.util.Assert;
 
 public final class XY {
-
-	public static final XY ZERO = new XY(0, 0);
+	public final int x;
+	public final int y;
 	
+	public static final XY ZERO_ZERO = new XY(0, 0);	
 	public static final XY UP = new XY(1, 0);
 	public static final XY UP_LEFT = new XY(1, -1);
 	public static final XY UP_RIGHT = new XY(1, 1);
@@ -18,60 +19,32 @@ public final class XY {
 	public static final XY DOWN_RIGHT = new XY(-1, 1);
 	public static final XY RIGHT = new XY(0, 1);
 	public static final XY LEFT = new XY(0, -1);
-
-	private static final List<XY> DIRECTIONS = Arrays.asList(UP, UP_LEFT, UP_RIGHT, DOWN, DOWN_LEFT, DOWN_RIGHT, RIGHT,
-			LEFT);
-
-	private final int x;
-	private final int y;
-
-	public XY(final int xy) {
-		this.x = this.y = xy;
-	}
-
-	public XY(final int x, final int y) {
+	
+	public XY(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public int getX() {
-		return x;
+	public XY plus(XY xy) {
+		return new XY(x + xy.x, y + xy.y);
 	}
-
-	public int getY() {
-		return y;
+	
+	public XY minus(XY location) {
+		return plus(location.times(-1));
 	}
-
-	public XY reverse() {
-		return new XY(-x, -y);
+	
+	public XY times(int factor) {
+		return new XY(x * factor, y * factor);
 	}
-
-	public XY add(final XY other) {
-		Assert.notNull(other, "other must not be null");
-		return new XY(x + other.x, y + other.y);
-	}
-
+	
 	public double length() {
 		return Math.sqrt(x * x + y * y);
 	}
-
-	public int gridLength() {
-		return Math.max(Math.abs(x), Math.abs(y));
-	}
 	
-	public XY clamp() {
-		return clamp(-1, 1);
-	}
-	
-	public XY clamp(final int min, final int max) {
-		if (min > max) {
-			throw new IllegalArgumentException("min > max");
-		}
-		return new XY(clamp(min, max, x), clamp(min, max, y));
-	}
-	
-	private static int clamp(final int min, final int max, final int val) {
-		return Math.max(min, Math.min(max, val));
+	public double distanceFrom(XY xy) {
+		final int distanceX = x - xy.x;
+		final int distanceY = y - xy.y;
+		return Math.max(Math.abs(distanceX), Math.abs(distanceY));
 	}
 
 	@Override
@@ -102,13 +75,5 @@ public final class XY {
 	@Override
 	public String toString() {
 		return "XY [x=" + x + ", y=" + y + "]";
-	}
-
-	public XY minus(XY location) {
-		return add(location.reverse());
-	}
-	
-	public static XY randomDirection() {
-		return DIRECTIONS.get(ThreadLocalRandom.current().nextInt(DIRECTIONS.size()));
 	}
 }

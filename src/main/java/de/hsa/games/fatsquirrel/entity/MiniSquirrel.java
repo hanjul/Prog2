@@ -4,13 +4,14 @@ import java.util.Objects;
 
 import de.hsa.games.fatsquirrel.core.EntityContext;
 import de.hsa.games.fatsquirrel.core.XY;
+import de.hsa.games.fatsquirrel.core.XYSupport;
 
 public class MiniSquirrel extends PlayerEntity {
 
 	MasterSquirrel master;
 	
-	public MiniSquirrel(int id, int energy, XY location) {
-		super(id, energy, location);
+	public MiniSquirrel(int energy, XY location) {
+		super(energy, location);
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class MiniSquirrel extends PlayerEntity {
 			return;
 		}
 		updateEnergy(-1);
-		context.tryMove(this, XY.randomDirection());
+		context.tryMove(this, XYSupport.randomDirection());
 	}
 	
 	@Override
@@ -45,5 +46,9 @@ public class MiniSquirrel extends PlayerEntity {
 	
 	public boolean isSibling(final MiniSquirrel squirrel) {
 		return master.isChild(squirrel);
+	}
+	
+	public MasterSquirrel getMaster() {
+		return master;
 	}
 }
