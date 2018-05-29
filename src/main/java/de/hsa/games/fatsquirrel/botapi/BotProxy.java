@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class BotProxy {
 
 	public static ControllerContext createProxy(final ControllerContext context) {
-		InvocationHandler handler = new ProxyLogger();
+		InvocationHandler handler = new ProxyLogger(context);
 		ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
 		Class<?>[] proxyInterfaces = { ControllerContext.class };
 
@@ -22,7 +22,11 @@ public class BotProxy {
 
 		private static final Logger logger = LoggerFactory.getLogger(ProxyLogger.class.getName());
 
-		private BotController bot;
+		private ControllerContext context;
+		
+		public ProxyLogger(final ControllerContext context) {
+			this.context = context;
+		}
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -30,8 +34,9 @@ public class BotProxy {
 			for (int i = 0; i < args.length; i++) {
 				argsAsString[i] = args[i].toString();
 			}
-			logger.debug("{0} called the {1}() method with the following arguments", bot, method,
+			logger.debug("{} called the {}() method with the following arguments {}", context, method,
 					String.join(", ", argsAsString));
+			method.invoke(context, args);
 			return null;
 		}
 	}

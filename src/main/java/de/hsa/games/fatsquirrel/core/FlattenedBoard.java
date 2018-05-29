@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.hsa.games.fatsquirrel.entity.BadBeast;
 import de.hsa.games.fatsquirrel.entity.BadPlant;
 import de.hsa.games.fatsquirrel.entity.Entity;
@@ -18,6 +21,8 @@ import de.hsa.games.fatsquirrel.util.Assert;
 
 public class FlattenedBoard implements BoardView, EntityContext {
 
+	private static final Logger logger = LoggerFactory.getLogger(FlattenedBoard.class);
+	
 	private final Board board;
 	private final Entity[][] cells;
 
@@ -235,6 +240,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
 				e.setLocation(e.getLocation().plus(direction));
 				cells[location.x][location.y] = null;
 				cells[e.getLocation().x][e.getLocation().y] = e;
+			} else {
+				logger.debug("{} collides with {}", e, tryCollide(e, direction));
 			}
 		}
 	}
@@ -263,6 +270,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		set.remove(entity);
 		final XY location = entity.getLocation();
 		cells[location.x][location.y] = null;
+		logger.debug("{} just got killed", entity);
 	}
 
 	@Override
@@ -287,6 +295,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 			board.getEntities().add(e);
 			cells[rand.x][rand.y] = e;
 		}
+		logger.debug("{} just got killed and replaced", entity);
 	}
 
 	@Override
@@ -297,6 +306,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		}
 		cells[location.x][location.y] = mini;
 		board.getEntities().add(mini);
+		logger.debug("The mini squirrel {} was just spawned", mini);
 	}
 
 	private XY randomPosition() {
@@ -347,5 +357,38 @@ public class FlattenedBoard implements BoardView, EntityContext {
 			builder.append(']').append('\n');
 		}
 		return super.toString();
+	}
+
+	@Override
+	public void implode(MiniSquirrel mini, int impactRadius) {
+		final int impactArea = (int) Math.round(impactRadius * impactRadius * Math.PI);
+		int totalEnergyLoss = 0;
+		for (Entity e : board.getEntities()) {
+			if (e.getType() == EntityType.MASTER_SQUIRREL) {
+				if (((MasterSquirrel) e).isChild(mini)) {
+					continue;
+				}
+			}
+			if (e.getType() == EntityType.MINI_SQUIRREL) {
+				if (((MiniSquirrel) e).getMaster() == mini.getMaster()) {
+					continue;
+				}
+			}
+			if (e.getType() == EntityType.WALL) {
+				continue;
+			}
+			
+			final double distance = mini.getLocation().distanceFrom(e.getLocation());
+			if (distance <= impactRadius) {
+				int energyLoss = (int) (200 * (mini.getEnergy() / impactArea) * (1 - distance / impactRadius));
+				if (e.getEnergy() - energyLoss < 0) {
+					energyLoss = e.getEnergy();
+				}
+				e.updateEnergy(energyLoss);
+				totalEnergyLoss += energyLoss;
+			}
+		}
+		
+		mini.getMaster().updateEnergy(totalEnergyLoss);
 	}
 }

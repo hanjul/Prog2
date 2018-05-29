@@ -5,16 +5,21 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hsa.games.fatsquirrel.botapi.BotControllerFactory;
+import de.hsa.games.fatsquirrel.botapi.MasterSquirrelBot;
 import de.hsa.games.fatsquirrel.core.Board;
 import de.hsa.games.fatsquirrel.core.BoardConfig;
 import de.hsa.games.fatsquirrel.core.BoardCreator;
 import de.hsa.games.fatsquirrel.core.XY;
 import de.hsa.games.fatsquirrel.entity.EntityType;
+import de.hsa.games.fatsquirrel.team27.Team27BotControllerFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
 
+	private static final BotControllerFactory BOT_FACTORY = new Team27BotControllerFactory();
+	
 	private static void startGame(final Game game) {
 		Timer t = new Timer();
 		t.schedule(new TimerTask() {
@@ -22,7 +27,7 @@ public class Launcher extends Application {
 			public void run() {
 				game.run();
 			}
-		}, 1000L);
+		}, 0L);
 	}
 
 	@Override
@@ -33,10 +38,12 @@ public class Launcher extends Application {
 		m.put(EntityType.BAD_BEAST, 2);
 		m.put(EntityType.GOOD_PLANT, 2);
 		m.put(EntityType.BAD_PLANT, 2);
-		m.put(EntityType.MASTER_SQUIRREL, 1);
+		m.put(EntityType.MASTER_SQUIRREL, 0);
 		BoardConfig boardConfig = new BoardConfig(m, new XY(10, 8), 5);
 		FxUI fxUI = FxUI.createInstance(boardConfig.getSize());
 		Board b = new BoardCreator(0, boardConfig).generateBoard();
+		b.put(new MasterSquirrelBot(new XY(1, 1), BOT_FACTORY, BOT_FACTORY.createMasterBotController()));
+		b.put(new MasterSquirrelBot(new XY(7, 3), BOT_FACTORY, BOT_FACTORY.createMasterBotController()));
 		State s = new State(b);
 		final Game game = new FxGame(s, fxUI);
 

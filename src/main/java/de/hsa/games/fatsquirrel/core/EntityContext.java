@@ -34,4 +34,6 @@ public interface EntityContext {
 	EntityType getEntityType(XY pos);
 
 	void spawnMiniSquirrel(final MiniSquirrel mini);
+	
+	void implode(MiniSquirrel mini, int impactRadius);
 }

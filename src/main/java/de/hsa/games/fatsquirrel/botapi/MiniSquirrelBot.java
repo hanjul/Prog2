@@ -87,6 +87,7 @@ public class MiniSquirrelBot extends MiniSquirrel {
 			if (impactRadius < 2 || impactRadius > 10) {
 				throw new IllegalArgumentException();
 			}
+			context.implode(MiniSquirrelBot.this, impactRadius);
 		}
 
 		@Override

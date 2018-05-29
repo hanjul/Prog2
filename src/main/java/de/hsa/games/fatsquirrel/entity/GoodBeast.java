@@ -9,7 +9,7 @@ import de.hsa.games.fatsquirrel.core.XYSupport;
 public class GoodBeast extends Character {
 
 	private static final int DEFAULT_ENERGY = 200;
-	private static final int ROUND_TIMEOUT = 4;
+	private static final int ROUND_TIMEOUT = 3;
 
 	public GoodBeast(XY location) {
 		super(DEFAULT_ENERGY, location);

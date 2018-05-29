@@ -3,6 +3,8 @@ package de.hsa.games.fatsquirrel.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsa.games.fatsquirrel.botapi.BotController;
+import de.hsa.games.fatsquirrel.botapi.MasterSquirrelBot;
 import de.hsa.games.fatsquirrel.entity.Entity;
 import de.hsa.games.fatsquirrel.entity.EntitySet;
 import de.hsa.games.fatsquirrel.util.Assert;
@@ -47,5 +49,9 @@ public final class Board {
 	@Override
 	public String toString() {
 		return flatten().toString();
+	}
+
+	public void put(MasterSquirrelBot masterSquirrelBot) {
+		entities.add(masterSquirrelBot);
 	}
 }

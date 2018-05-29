@@ -1,5 +1,8 @@
 package de.hsa.games.fatsquirrel.command;
 
+import de.hsa.games.fatsquirrel.Game;
+import de.hsa.games.fatsquirrel.entity.MasterSquirrel;
+
 public enum MyFavoriteCommandType implements CommandTypeInfo {
 
 	HELP("help", "list all commands"),
@@ -31,5 +34,11 @@ public enum MyFavoriteCommandType implements CommandTypeInfo {
 	@Override
 	public Class<?>[] getParamTypes() {
 		return params;
+	}
+
+	@Override
+	public boolean execute(Game game, MasterSquirrel master) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

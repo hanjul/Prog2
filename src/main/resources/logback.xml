@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE project>
 <configuration>
+	<property name="DEV_HOME" value="c:/logs" />
+	<timestamp key="byDay" datePattern="yyyyMMdd'T'HHmmss" />
+
+
 	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
@@ -17,10 +21,12 @@
 		subsequent configuration elements. -->
 	<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss" />
 
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+	<appender name="FILE"
+		class="ch.qos.logback.core.FileAppender">
 		<!-- use the previously created timestamp to create a uniquely named log 
 			file -->
-		<file>log-${bySecond}.txt</file>
+		<file>${DEV_HOME}/debug-${byDay}.log</file>
+		<append>true</append>
 		<encoder>
 			<pattern>%logger{35} - %msg%n</pattern>
 		</encoder>
