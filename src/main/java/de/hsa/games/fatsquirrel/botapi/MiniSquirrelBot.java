@@ -103,7 +103,7 @@ public class MiniSquirrelBot extends MiniSquirrel {
 	}
 
 	@Override
-	public void nextStep(EntityContext view) {
+	public void onNextStep(EntityContext view) {
 		miniBotController.nextStep(new ControllerContextImpl(view));
 	}
 }

@@ -13,16 +13,11 @@ public class BadBeast extends Character {
 	private int livesLeft = 7;
 	
 	public BadBeast(XY location) {
-		super(DEFAULT_ENERGY, location);
+		super(DEFAULT_ENERGY, location, ROUND_TIMEOUT);
 	}
 
 	@Override
-	public void nextStep(EntityContext context) {
-		if (!canMove()) {
-			roundsTillNextMove--;
-			return;
-		}
-		roundsTillNextMove = ROUND_TIMEOUT;
+	public void onNextStep(EntityContext context) {
 		final Entity player = context.nearestPlayerEntity(getLocation());
 		if (player != null) {
 			if (player.getLocation().distanceFrom(getLocation()) <= 6) {

@@ -4,12 +4,12 @@ import de.hsa.games.fatsquirrel.core.XY;
 
 public abstract class PlayerEntity extends Character {
 
-	private static final int DEFAULT_STUNNED_ROUNDS = 3;
+	private static final int DEFAULT_STUNNED_ROUNDS = 4;
 	
 	private XY direction = XY.ZERO_ZERO;
 	
 	public PlayerEntity(int energy, XY location) {
-		super(energy, location);
+		super(energy, location, 0);
 	}
 	
 	public void setDirection(final XY direction) {

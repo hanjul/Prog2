@@ -8,7 +8,7 @@ import de.hsa.games.fatsquirrel.core.XY;
 
 public abstract class MasterSquirrel extends PlayerEntity {
 
-	protected final List<MiniSquirrel> children = Collections.unmodifiableList(new ArrayList<>());
+	protected final List<MiniSquirrel> children = new ArrayList<>();
 	
 	private static final int DEFAULT_ENERGY = 1000;
 
@@ -25,6 +25,7 @@ public abstract class MasterSquirrel extends PlayerEntity {
 		}
 		updateEnergy(-energy);
 		final MiniSquirrel mini = new MiniSquirrel(energy, getLocation().plus(direction));
+		children.add(mini);
 		mini.master = this;
 		return mini;
 	}
@@ -34,7 +35,7 @@ public abstract class MasterSquirrel extends PlayerEntity {
 	}
 	
 	public List<MiniSquirrel> getChildren() {
-		return children;
+		return Collections.unmodifiableList(children);
 	}
 	
 	@Override

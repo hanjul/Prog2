@@ -12,11 +12,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
 	}
 
 	@Override
-	public void nextStep(EntityContext context) {
-		super.nextStep(context);
-		if (!canMove()) {
-			return;
-		}
+	public void onNextStep(EntityContext context) {
 		context.tryMove(this, getDirection());
 	}
 

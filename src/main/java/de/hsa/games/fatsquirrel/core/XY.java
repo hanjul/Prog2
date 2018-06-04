@@ -1,25 +1,19 @@
 package de.hsa.games.fatsquirrel.core;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import de.hsa.games.fatsquirrel.util.Assert;
-
 public final class XY {
 	public final int x;
 	public final int y;
-	
-	public static final XY ZERO_ZERO = new XY(0, 0);	
-	public static final XY UP = new XY(1, 0);
-	public static final XY UP_LEFT = new XY(1, -1);
-	public static final XY UP_RIGHT = new XY(1, 1);
-	public static final XY DOWN = new XY(-1, 0);
-	public static final XY DOWN_LEFT = new XY(-1, -1);
-	public static final XY DOWN_RIGHT = new XY(-1, 1);
-	public static final XY RIGHT = new XY(0, 1);
-	public static final XY LEFT = new XY(0, -1);
-	
+
+	public static final XY ZERO_ZERO = new XY(0, 0);
+	public static final XY RIGHT = new XY(1, 0);
+	public static final XY LEFT = new XY(-1, 0);
+	public static final XY UP = new XY(0, -1);
+	public static final XY DOWN = new XY(0, 1);
+	public static final XY RIGHT_UP = new XY(1, -1);
+	public static final XY RIGHT_DOWN = new XY(1, 1);
+	public static final XY LEFT_UP = new XY(-1, -1);
+	public static final XY LEFT_DOWN = new XY(-1, 1);
+
 	public XY(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -28,19 +22,19 @@ public final class XY {
 	public XY plus(XY xy) {
 		return new XY(x + xy.x, y + xy.y);
 	}
-	
+
 	public XY minus(XY location) {
 		return plus(location.times(-1));
 	}
-	
+
 	public XY times(int factor) {
 		return new XY(x * factor, y * factor);
 	}
-	
+
 	public double length() {
 		return Math.sqrt(x * x + y * y);
 	}
-	
+
 	public double distanceFrom(XY xy) {
 		final int distanceX = x - xy.x;
 		final int distanceY = y - xy.y;

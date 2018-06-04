@@ -275,7 +275,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
 	@Override
 	public void killAndReplace(Entity entity) {
-		kill(entity);
 		final EntityType type = entity.getType();
 		final XY rand = randomPosition();
 		Entity e = null;
@@ -295,7 +294,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
 			board.getEntities().add(e);
 			cells[rand.x][rand.y] = e;
 		}
-		logger.debug("{} just got killed and replaced", entity);
+		kill(entity);
+		logger.debug("{} just got killed and replaced {}", entity, e);
 	}
 
 	@Override
@@ -314,7 +314,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 		if (locations.isEmpty()) {
 			throw new IllegalStateException("the board is full");
 		}
-		Collections.shuffle(locations);
+		Collections.shuffle(locations, board.getRandom());
 		return locations.get(0);
 	}
 
@@ -385,10 +385,14 @@ public class FlattenedBoard implements BoardView, EntityContext {
 					energyLoss = e.getEnergy();
 				}
 				e.updateEnergy(energyLoss);
+				if (e.getEnergy() <= 0) {
+					killAndReplace(e);
+				}
 				totalEnergyLoss += energyLoss;
 			}
 		}
 		
 		mini.getMaster().updateEnergy(totalEnergyLoss);
+		kill(mini);
 	}
 }

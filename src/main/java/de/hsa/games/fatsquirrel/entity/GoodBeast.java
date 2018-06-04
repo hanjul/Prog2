@@ -12,13 +12,14 @@ public class GoodBeast extends Character {
 	private static final int ROUND_TIMEOUT = 3;
 
 	public GoodBeast(XY location) {
-		super(DEFAULT_ENERGY, location);
+		super(DEFAULT_ENERGY, location, ROUND_TIMEOUT);
 	}
 
 	@Override
-	public void nextStep(EntityContext context) {
+	public void onNextStep(EntityContext context) {
 		if (!canMove()) {
 			roundsTillNextMove--;
+			return;
 		}
 		roundsTillNextMove = ROUND_TIMEOUT;
 		final Entity player = context.nearestPlayerEntity(getLocation());

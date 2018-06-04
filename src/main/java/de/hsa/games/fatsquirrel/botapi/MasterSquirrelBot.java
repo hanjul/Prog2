@@ -103,7 +103,7 @@ public class MasterSquirrelBot extends MasterSquirrel {
 	}
 
 	@Override
-	public void nextStep(EntityContext context) {
+	public void onNextStep(EntityContext context) {
 		masterBotController.nextStep(BotProxy.createProxy(new ControllerContextImpl(context)));
 	}
 }

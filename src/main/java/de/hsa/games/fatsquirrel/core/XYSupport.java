@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class XYSupport {
 
-	private static final List<XY> DIRECTIONS = Arrays.asList(UP, UP_LEFT, UP_RIGHT, DOWN, DOWN_LEFT, DOWN_RIGHT, RIGHT,
+	public static final List<XY> DIRECTIONS = Arrays.asList(UP, LEFT_UP, RIGHT_UP, DOWN, LEFT_DOWN, RIGHT_DOWN, RIGHT,
 			LEFT);
 	
 	public static XY randomDirection() {

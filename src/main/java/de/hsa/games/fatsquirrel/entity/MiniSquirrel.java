@@ -3,6 +3,7 @@ package de.hsa.games.fatsquirrel.entity;
 import java.util.Objects;
 
 import de.hsa.games.fatsquirrel.core.EntityContext;
+import de.hsa.games.fatsquirrel.core.SpawnException;
 import de.hsa.games.fatsquirrel.core.XY;
 import de.hsa.games.fatsquirrel.core.XYSupport;
 
@@ -12,14 +13,13 @@ public class MiniSquirrel extends PlayerEntity {
 	
 	public MiniSquirrel(int energy, XY location) {
 		super(energy, location);
+		if (energy < 100) {
+			throw new SpawnException("energy must be >= 100");
+		}
 	}
 
 	@Override
-	public void nextStep(EntityContext context) {
-		super.nextStep(context);
-		if (!canMove()) {
-			return;
-		}
+	public void onNextStep(EntityContext context) {
 		updateEnergy(-1);
 		context.tryMove(this, XYSupport.randomDirection());
 	}

@@ -39,7 +39,8 @@ public class Launcher extends Application {
 		m.put(EntityType.GOOD_PLANT, 2);
 		m.put(EntityType.BAD_PLANT, 2);
 		m.put(EntityType.MASTER_SQUIRREL, 0);
-		BoardConfig boardConfig = new BoardConfig(m, new XY(10, 8), 5);
+//		BoardConfig boardConfig = new BoardConfig(m, new XY(10, 8), 5);
+		BoardConfig boardConfig = new BoardConfig(m, new XY(20, 20), 5);
 		FxUI fxUI = FxUI.createInstance(boardConfig.getSize());
 		Board b = new BoardCreator(0, boardConfig).generateBoard();
 		b.put(new MasterSquirrelBot(new XY(1, 1), BOT_FACTORY, BOT_FACTORY.createMasterBotController()));

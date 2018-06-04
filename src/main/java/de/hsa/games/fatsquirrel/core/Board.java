@@ -2,8 +2,8 @@ package de.hsa.games.fatsquirrel.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.MasterSquirrelBot;
 import de.hsa.games.fatsquirrel.entity.Entity;
 import de.hsa.games.fatsquirrel.entity.EntitySet;
@@ -13,10 +13,12 @@ public final class Board {
 
 	private final BoardConfig config;
 	private final EntitySet entities;
+	private final Random random;
 
-	public Board(final BoardConfig config, final EntitySet entities) {
+	public Board(final BoardConfig config, final EntitySet entities, final Random random) {
 		this.config = Assert.notNull(config, "config must not be null");
 		this.entities = Assert.notNull(entities, "entities must not be null");
+		this.random = Assert.notNull(random, "random must not be null");
 	}
 	
 	public BoardConfig getConfig() {
@@ -25,6 +27,10 @@ public final class Board {
 	
 	public EntitySet getEntities() {
 		return entities;
+	}
+	
+	public Random getRandom() {
+		return random;
 	}
 	
 	public FlattenedBoard flatten() {

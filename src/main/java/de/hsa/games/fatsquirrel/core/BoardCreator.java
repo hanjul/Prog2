@@ -18,12 +18,14 @@ import de.hsa.games.fatsquirrel.util.Assert;
 
 public final class BoardCreator {
 
+	private final Random random;
 	private final long seed;
 	private final BoardConfig config;
 
 	public BoardCreator(final long seed, final BoardConfig config) {
 		this.seed = seed;
 		this.config = Assert.notNull(config, "config must not be null");
+		random = new Random(seed);
 	}
 
 	public long getSeed() {
@@ -83,7 +85,7 @@ public final class BoardCreator {
 	public Board generateBoard() {
 		final EntitySet set = generateWalls();
 		final List<XY> locations = generateLocations();
-		Collections.shuffle(locations, new Random(seed));
+		Collections.shuffle(locations, random);
 		int index = 0;
 		
 		for (int i = 0; i < config.getWallCount(); i++) {
@@ -98,6 +100,6 @@ public final class BoardCreator {
 				}
 			}
 		}
-		return new Board(config, set);
+		return new Board(config, set, random);
 	}
 }
