@@ -88,10 +88,6 @@ public final class BoardCreator {
 		Collections.shuffle(locations, random);
 		int index = 0;
 		
-		for (int i = 0; i < config.getWallCount(); i++) {
-			set.add(new Wall(locations.get(index++)));
-		}
-		
 		for (final Map.Entry<EntityType, Integer> e : config.getEntityAmounts().entrySet()) {
 			for (int i = 0; i < e.getValue(); i++) {
 				final Entity generated = generateEntity(e.getKey(), locations.get(index++));

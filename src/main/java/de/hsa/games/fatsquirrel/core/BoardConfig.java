@@ -2,32 +2,35 @@ package de.hsa.games.fatsquirrel.core;
 
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import de.hsa.games.fatsquirrel.entity.EntityType;
 import de.hsa.games.fatsquirrel.util.Assert;
 
 public final class BoardConfig {
 
+	private final Set<String> botNames;
 	private final Map<EntityType, Integer> entityAmounts;
 	private final XY size;
-	private final int wallCount;
+	private final int steps;
 	
 	private BoardConfig(final Builder builder) {
-		this(builder.entityAmounts, builder.size, builder.wallCount);
+		this(builder.entityAmounts, builder.size, builder.botNames, builder.steps);
 	}
 	
-	public BoardConfig(final Map<EntityType, Integer> entityAmounts, final XY size, final int wallCount) {
+	public BoardConfig(final Map<EntityType, Integer> entityAmounts, final XY size, final Set<String> botNames, final int steps) {
 		for (final Integer amount : entityAmounts.values()) {
 			if (amount < 0) {
 				throw new IllegalArgumentException("value is < 0");
 			}
 		}
-		this.entityAmounts = Collections.synchronizedMap(new EnumMap<>(entityAmounts));
+		this.entityAmounts = Collections.unmodifiableMap(new EnumMap<>(entityAmounts));
 		this.size = Objects.requireNonNull(size);
-		Assert.isTrue(wallCount >= 0, "wallCount must be >= 0");
-		this.wallCount = wallCount;
+		this.botNames = Collections.unmodifiableSet(botNames);
+		this.steps = steps;
 	}
 	
 	/**
@@ -43,16 +46,22 @@ public final class BoardConfig {
 		return size;
 	}
 	
-	public int getWallCount() {
-		return wallCount;
+	public Set<String> getBotNames() {
+		return botNames;
+	}
+	
+	public int getSteps() {
+		return steps;
 	}
 	
 	public static final class Builder {
 		private Map<EntityType, Integer> entityAmounts = new EnumMap<>(EntityType.class);
 		private XY size;
-		private int wallCount;
+		private Set<String> botNames = new HashSet<>();
+		private int steps;
 		
 		public Builder putEntityAmount(final EntityType type, final int amount) {
+			entityAmounts.put(type, amount);
 			return this;
 		}
 		
@@ -64,14 +73,26 @@ public final class BoardConfig {
 			return this;
 		}
 		
+		public Builder putBotName(final String name) {
+			botNames.add(name);
+			return this;
+		}
+		
+		public Builder botNames(final Set<String> botNames) {
+			this.botNames = Assert.notNull(botNames, "botNames must not be null");
+			for (final String s : botNames) {
+				Assert.notNull(s, "botNames must not contain null");
+			}
+			return this;
+		}
+		
 		public Builder size(final XY size) {
 			this.size = Objects.requireNonNull(size);
 			return this;
 		}
 		
-		public Builder wallCount(final int wallCount) {
-			Assert.isTrue(wallCount >= 0, "wallCount must be >= 0");
-			this.wallCount = wallCount;
+		public Builder steps(final int steps) {
+			this.steps = steps;
 			return this;
 		}
 		

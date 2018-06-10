@@ -1,4 +1,4 @@
-package de.hsa.games.fatsquirrel.team27;
+package de.hsa.games.fatsquirrel.botimpls.team27;
 
 import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.BotControllerFactory;

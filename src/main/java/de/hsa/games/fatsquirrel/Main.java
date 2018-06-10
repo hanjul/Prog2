@@ -25,9 +25,9 @@ public class Main {
 		m.put(EntityType.GOOD_PLANT, 2);
 		m.put(EntityType.BAD_PLANT, 2);
 		m.put(EntityType.MASTER_SQUIRREL, 1);
-		BoardConfig c = new BoardConfig(m, new XY(10, 8), 5);
+		BoardConfig c = new BoardConfig(m, new XY(10, 8), null, 0);
 		Board b = new BoardCreator(0, c).generateBoard();
-		State s = new State(b);
+		State s = new State(b, null);
 		new ConsoleGame(s).run();
 	}
 }
