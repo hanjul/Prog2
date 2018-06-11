@@ -72,7 +72,7 @@ public class Launcher extends Application {
 
 	private static final String PREFIX = "de.hsa.games.fatsquirrel.botimpls";
 
-	private static void setupBots2() {
+	private static void setupBots() {
 		for (final String bot : CONFIG.getBotNames()) {
 			final String botClassName = bot.substring(0, 1).toUpperCase() + bot.substring(1);
 			try {
@@ -126,7 +126,7 @@ public class Launcher extends Application {
 	public static void main(String[] args) {
 		args = new String[] { "-bots" };
 		if (Arrays.stream(args).anyMatch(s -> "-bots".equals(s))) {
-			setupBots2();
+			setupBots();
 		}
 		launch(args);
 	}
