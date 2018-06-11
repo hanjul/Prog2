@@ -17,11 +17,19 @@ public final class BoardConfig {
 	private final XY size;
 	private final int steps;
 	
-	private BoardConfig(final Builder builder) {
-		this(builder.entityAmounts, builder.size, builder.botNames, builder.steps);
+	@SuppressWarnings("unused")
+	private BoardConfig() {
+		botNames = null;
+		entityAmounts = null;
+		size = null;
+		steps = 0;
 	}
 	
-	public BoardConfig(final Map<EntityType, Integer> entityAmounts, final XY size, final Set<String> botNames, final int steps) {
+	private BoardConfig(final Builder builder) {
+		this(builder.botNames, builder.entityAmounts, builder.size, builder.steps);
+	}
+	
+	public BoardConfig(final Set<String> botNames, final Map<EntityType, Integer> entityAmounts, final XY size, final int steps) {
 		for (final Integer amount : entityAmounts.values()) {
 			if (amount < 0) {
 				throw new IllegalArgumentException("value is < 0");

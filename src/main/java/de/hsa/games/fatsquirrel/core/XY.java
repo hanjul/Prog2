@@ -14,6 +14,10 @@ public final class XY {
 	public static final XY LEFT_UP = new XY(-1, -1);
 	public static final XY LEFT_DOWN = new XY(-1, 1);
 
+	public XY() {
+		x = y = 0;
+	}
+	
 	public XY(int x, int y) {
 		this.x = x;
 		this.y = y;

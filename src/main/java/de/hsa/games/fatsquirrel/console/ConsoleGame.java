@@ -14,7 +14,7 @@ public class ConsoleGame extends Game {
 	private final List<HandOperatedMasterSquirrel> masters;
 
 	public ConsoleGame(State state) {
-		super(state, new ConsoleUI());
+		super(state, new ConsoleUI(), null);
 		this.masters = state.getBoard().getAll(HandOperatedMasterSquirrel.class);
 	}
 

@@ -1,0 +1,15 @@
+{
+	"botNames": ["team27", "test"],
+	"entityAmounts": {
+		"WALL": 2,
+		"GOOD_BEAST": 2,
+		"BAD_BEAST": 2,
+		"GOOD_PLANT": 2,
+		"BAD_PLANT": 2
+	},
+	"size": {
+		"x": 20,
+		"y": 20
+	},
+	"steps": 10
+}

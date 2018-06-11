@@ -1,16 +1,15 @@
 package de.hsa.games.fatsquirrel;
 
-import java.util.List;
+import java.util.Map;
 
-import de.hsa.games.fatsquirrel.core.XY;
-import de.hsa.games.fatsquirrel.entity.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.entity.Entity;
 
 public class FxGame extends Game {
 
 //	private final List<HandOperatedMasterSquirrel> masters;
 
-	public FxGame(State state, UI ui) {
-		super(state, ui);
+	public FxGame(State state, UI ui, Map<Entity, String> bots) {
+		super(state, ui, bots);
 //		this.masters = state.getBoard().getAll(HandOperatedMasterSquirrel.class);
 	}
 
