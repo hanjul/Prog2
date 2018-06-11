@@ -78,7 +78,7 @@ public class Launcher extends Application {
 			try {
 				final Class<?> clazz = Class.forName(PREFIX + "." + bot + "." + botClassName + "BotControllerFactory");
 				if (!BotControllerFactory.class.isAssignableFrom(clazz)) {
-					logger.warn("not bot controller factory found in package {}", bot);
+					logger.warn("no bot controller factory found in package {}", bot);
 					break;
 				}
 
