@@ -8,27 +8,31 @@ import de.hsa.games.fatsquirrel.entity.MasterSquirrel;
 import de.hsa.games.fatsquirrel.entity.MiniSquirrel;
 import de.hsa.games.fatsquirrel.util.Assert;
 
+/**
+ * A {@link MasterSquirrel} implementation that represents a bot.
+ */
 public class MasterSquirrelBot extends MasterSquirrel {
 
 	private final BotControllerFactory botControllerFactory;
 	private final BotController masterBotController;
-	
-	public MasterSquirrelBot(final XY location, final BotControllerFactory botControllerFactory, final BotController masterBotController) {
+
+	public MasterSquirrelBot(final XY location, final BotControllerFactory botControllerFactory,
+			final BotController masterBotController) {
 		super(location);
 		this.botControllerFactory = Assert.notNull(botControllerFactory, "botControllerFactory must not be null");
 		this.masterBotController = Assert.notNull(masterBotController, "masterBotController must not be null");
 	}
-	
+
 	public class ControllerContextImpl implements ControllerContext {
 
 		private static final int VIEW_DISTANCE = 31;
-		
+
 		private final EntityContext context;
-		
+
 		public ControllerContextImpl(final EntityContext context) {
 			this.context = Assert.notNull(context, "context must not be null");
 		}
-		
+
 		@Override
 		public XY getViewLowerLeft() {
 			final XY size = context.getSize();
@@ -63,7 +67,8 @@ public class MasterSquirrelBot extends MasterSquirrel {
 
 		@Override
 		public void spawnMiniBot(XY direction, int energy) {
-			final MiniSquirrel mini = new MiniSquirrelBot(energy, getLocation().plus(direction), botControllerFactory, botControllerFactory.createMiniBotController());
+			final MiniSquirrel mini = new MiniSquirrelBot(energy, getLocation().plus(direction), botControllerFactory,
+					botControllerFactory.createMiniBotController());
 			context.spawnMiniSquirrel(mini);
 		}
 

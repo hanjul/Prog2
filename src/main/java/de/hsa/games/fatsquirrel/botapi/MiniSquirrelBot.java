@@ -7,6 +7,9 @@ import de.hsa.games.fatsquirrel.entity.EntityType;
 import de.hsa.games.fatsquirrel.entity.MiniSquirrel;
 import de.hsa.games.fatsquirrel.util.Assert;
 
+/**
+ * A {@link MiniSquirrel} implementation that represents a bot.
+ */
 public class MiniSquirrelBot extends MiniSquirrel {
 
 	private static final int VIEW_DISTANCE = 21;
