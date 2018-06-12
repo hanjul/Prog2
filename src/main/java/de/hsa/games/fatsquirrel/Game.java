@@ -49,7 +49,15 @@ public abstract class Game implements Runnable {
 	public Command getCurrentCommand() {
 		return currentCommand;
 	}
-
+	
+	public Map<Entity, String> getBots() {
+		return bots;
+	}
+	
+	public void setNextState(Supplier<State> nextState) {
+		this.nextState = nextState;
+	}
+	
 	@SuppressWarnings("unchecked")
 	private static Map<String, List<Integer>> loadHighscores(final Collection<String> botNames) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -147,6 +155,7 @@ public abstract class Game implements Runnable {
 				final State s = nextState.get();
 				if (s != null) {
 					state = s;
+					currentSteps = 0;
 				} else {
 					running = false;
 				}

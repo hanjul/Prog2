@@ -47,17 +47,15 @@ public class Launcher extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FxUI fxUI = FxUI.createInstance(CONFIG.getSize());
-		Board b = new BoardCreator(0, CONFIG).generateBoard();
 		final Map<Entity, String> bots = new HashMap<>();
-		int i = 1;
-		for (Map.Entry<String, BotControllerFactory> fac : BOT_FACTORYS.entrySet()) {
-			final MasterSquirrelBot e = new MasterSquirrelBot(new XY(i++, i), fac.getValue(),
-					fac.getValue().createMasterBotController());
-			b.put(e);
-			bots.put(e, fac.getKey());
-		}
-		State s = new State(b);
-		final Game game = new FxGame(s, fxUI, bots);
+		final State primaryState = generarePrimaryState(bots);
+		final Game game = new FxGame(primaryState, fxUI, bots);
+		game.setNextState(() -> {
+			final State secondaryState = generareSecondaryState(game.getBots());
+			game.setNextState(null);
+			return secondaryState;
+		});
+		
 		game.setSteps(CONFIG.getSteps());
 
 		primaryStage.setScene(fxUI);
@@ -68,6 +66,32 @@ public class Launcher extends Application {
 		primaryStage.show();
 
 		startGame(game);
+	}
+	
+	private State generarePrimaryState(Map<Entity, String> bots) {
+		Board b = new BoardCreator(0, CONFIG).generateBoard();
+		int i = 1;
+		for (Map.Entry<String, BotControllerFactory> fac : BOT_FACTORYS.entrySet()) {
+			final MasterSquirrelBot e = new MasterSquirrelBot(new XY(i++, i), fac.getValue(),
+					fac.getValue().createMasterBotController());
+			b.put(e);
+			bots.put(e, fac.getKey());
+		}
+		State s = new State(b);
+		return s;
+	}
+	
+	private State generareSecondaryState(Map<Entity, String> bots) {
+		Board b = new BoardCreator(10, CONFIG).generateBoard();
+		int i = 1;
+		for (Map.Entry<String, BotControllerFactory> fac : BOT_FACTORYS.entrySet()) {
+			final MasterSquirrelBot e = new MasterSquirrelBot(new XY(i++, i), fac.getValue(),
+					fac.getValue().createMasterBotController());
+			b.put(e);
+			bots.put(e, fac.getKey());
+		}
+		State s = new State(b);
+		return s;
 	}
 
 	private static final String PREFIX = "de.hsa.games.fatsquirrel.botimpls";
